@@ -1,0 +1,24 @@
+# import * from './or.graphql'
+
+enum Operation {
+    EQUALS
+    CONTAINS
+    LT
+    LTE
+    GT
+    GTE
+}
+
+input RequestFilter {
+    operation: Operation
+    value: String
+    property: String
+}
+
+input Or {
+    or: [ RequestFilter ]
+}
+
+input And {
+    and: [ Or ]
+}

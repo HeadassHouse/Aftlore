@@ -1,32 +1,46 @@
 const { CreateDocument, GetDocument } = require('../utils/database');
 const { schema:Account } = require('../models/account');
-const { }
+const { bcrypt } = require('bcrypt');
 
 
 module.exports = {
     Query: {
         getAccount: ( _, { userName, password } ) => {
-            // Get the account info from the db, returning the account if the passwordhash and password match
-            const account = await GetDocument( Account,  );
-            
-            // Check to make sure the password is correct
-            const same = await bcrypt.compare(password, account);
-
-            // If they are the same, we will return the account, otherwise we will return an error
-            if (same) {
-                return account;
-            }
-            else {
-                return new Error("Incorrect login information");
-            }
+            return GetDocument( Account, { userName: userName } )
+                .then( (result) => {
+                    const same = await bcrypt.compare(password, result.password);
+                    if (same) {
+                        return result;
+                    }
+                    else {
+                        return new Error("Incorrect login information");
+                    }
+                })
+                .catch( (error) => {
+                    return {
+                        code: 400,
+                        message: error
+                    }
+                });            
         }
     },
     Mutation: {
         createAccount: ( _, { account } ) => {
-            // First make the passed in password a hashed one
-            account.passwordHash = await bcrypt.hash(String(account.password),10);
+            account.password = await bcrypt.hash(String(account.password),10);
 
-
+            return CreateDocument(Account, account)
+                .then( () => { 
+                    return {
+                        code: 200,
+                        message: "Successfully inserted Account"
+                    }
+                })
+                .catch( (error) => {
+                    return {
+                        code: 400,
+                        message: error
+                    }
+                });
         }
     }
 }

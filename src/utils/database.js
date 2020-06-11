@@ -1,4 +1,5 @@
 const { mongoose } = require('mongoose');
+const { ApolloError } = require('apollo-server');
 
 module.exports = {
     Connect: () => {
@@ -21,8 +22,8 @@ module.exports = {
         
         return savedDoc;
     },
-    GetDocument: async (collection, id) => {
-        const doc = collection.findOne( { _id: id});
+    GetDocument: async (collection, query, fields = null) => {
+        const doc = collection.findOne( query, fields );
         
         if (!doc)
             throw new ApolloError("Document not found!");
@@ -30,7 +31,7 @@ module.exports = {
         return doc;
     },
     GetDocuments: async (collection, query, fields) => {
-        const docs = collection.find(query, fields);
+        const docs = collection.find( query, fields);
 
         if (!docs)
             throw new ApolloError("No documents found!");
