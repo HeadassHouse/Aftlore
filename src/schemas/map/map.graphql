@@ -1,0 +1,24 @@
+# import * from './tile.graphql'
+# import * from '../where/where.graphql'
+# import * from '../statusCode.graphql'
+
+input MapInput {
+    imageLink: String
+    name: String
+    tiles: [TileInput]
+}
+
+type Map {
+    _id: ID
+    imageLink: String
+    name: String
+    tiles: [Tile]
+}
+
+type Query {
+    getMap(id: String, where: And): Map
+}
+
+type Mutation {
+    createMap(map: MapInput!): StatusCode
+}

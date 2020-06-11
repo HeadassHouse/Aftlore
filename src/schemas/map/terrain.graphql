@@ -1,0 +1,6 @@
+enum Terrain {
+    IMPASSABLE
+    PASSABLE
+    ROUGH
+    SLIPPERY
+}

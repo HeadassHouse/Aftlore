@@ -1,0 +1,18 @@
+# import * from './terrain.graphql'
+
+input TileInput {
+    x: Int
+    y: Int
+    height: Int
+    width: Int
+    type: Terrarin
+}
+
+type Tile {
+    _id: ID
+    x: Int
+    y: Int
+    height: Int
+    width: Int
+    type: Terrarin
+}

@@ -1,0 +1,10 @@
+input FriendInput {
+    userName: String
+    name: String
+}
+
+type Friend {
+    _id: ID
+    userName: String
+    name: String
+}

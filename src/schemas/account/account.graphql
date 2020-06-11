@@ -1,0 +1,25 @@
+# import * from './friend.graphql'
+# import * from '../statusCode.graphql'
+
+input AccountInput {
+    userName: String
+    name: String
+    email: String
+    friends: [ FriendInput ]
+}
+
+type Account {
+    _id: ID
+    userName: String
+    name: String
+    email: String
+    friends: [ Friend ]
+}
+
+type Query {
+    getAccount(userName: String!, password: String!): Account
+}
+
+type Mutation {
+    createAccount(account: AccountInput!): StatusCode
+}
