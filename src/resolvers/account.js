@@ -1,5 +1,7 @@
 const { CreateDocument, GetDocument } = require('../utils/database');
 const { schema:Account } = require('../models/account');
+const { }
+
 
 module.exports = {
     Query: {
@@ -21,6 +23,9 @@ module.exports = {
     },
     Mutation: {
         createAccount: ( _, { account } ) => {
+            // First make the passed in password a hashed one
+            account.passwordHash = await bcrypt.hash(String(account.password),10);
+
 
         }
     }
