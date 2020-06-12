@@ -4,7 +4,7 @@ const { Query: MapQuery, Mutation: MapMutation } = require('./map');
 module.exports = {
     resolver: {
         Query:{
-            getAccount: AccountQuery.getAccount,
+            login: AccountQuery.login,
             getMap: MapQuery.getMap
         }, 
         Mutation: {

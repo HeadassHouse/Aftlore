@@ -20,7 +20,7 @@ type Account {
 }
 
 type Query {
-    getAccount(userName: String!, password: String!): Account
+    login(userName: String!, password: String!): Account
 }
 
 type Mutation {

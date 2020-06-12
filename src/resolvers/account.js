@@ -2,14 +2,14 @@ const { CreateDocument, GetDocument, UpdateDocument } = require('../utils/databa
 const { schema:Account } = require('../models/account');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
-const ObjectID = require('mongodb').ObjectID;
-
 
 module.exports = {
     Query: {
-        getAccount: async ( _, { userName, password } ) => {
+        login: async ( _, { userName, password } ) => {
             return GetDocument( mongoose.model('Account', Account), { userName: userName } )
                 .then( async (result) => {
+                    if (!result)
+                        return new Error("userName not found");
                     const same = await bcrypt.compare(password, result.password);
                     if (same) {
                         return result;
@@ -29,7 +29,6 @@ module.exports = {
     Mutation: {
         createAccount: async ( _, { account } ) => {
             account.password = await bcrypt.hash(String(account.password),10);
-
             return CreateDocument(mongoose.model('Account', Account), account)
                 .then( () => { 
                     return {
@@ -44,14 +43,12 @@ module.exports = {
                     }
                 });
         },
-        editAccount: async ( _, { _id, update } ) => {
-            const changedValue = {}
-            changedValue[update.property] = update.value
-            return UpdateDocument(mongoose.model('Account', Account), {_id: new ObjectID(_id)}, {$set:changedValue} )
-                .then( () => { 
+        editAccount: async ( _, { _id, update: { property, value} } ) => {
+            return UpdateDocument(mongoose.model('Account', Account), _id, { [property]: value} )
+                .then( ( ) => { 
                     return {
                         code: 200,
-                        message: "Successfully editted Account"
+                        message: "Successfully edited Account"
                     }
                 })
                 .catch( (error) => {

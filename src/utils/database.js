@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { ApolloError, RenameRootFields } = require('apollo-server');
+const { ApolloError } = require('apollo-server');
 
 module.exports = {
     Connect: async () => {
@@ -11,40 +11,35 @@ module.exports = {
         mongoose
             .connect(uri, {
                 useNewUrlParser: true,
-                dbName: 'loremaster'
+                dbName: 'loremaster',
+                useUnifiedTopology: true 
             })
             .then(() => `Successfully connected to db`); 
     },
     CreateDocument: async (Model, payload) => {
-        console.log(payload)
-        const doc = new Model(payload);
-        const savedDoc = doc.save()
+        return new Model(payload).save()
             .catch( (error) => { throw new ApolloError(error) } );
-        console.log(savedDoc);
-        return savedDoc;
     },
-    GetDocument: async (collection, query, fields = null) => {
-        const doc = collection.findOne( query );
+    GetDocument: async (Model, query, fields = null) => {
+        const doc = Model.findOne( query );
         
         if (!doc)
             throw new ApolloError("Document not found!");
-       
-        return doc;
+        else
+            return doc;
     },
-    GetDocuments: async (collection, query, fields) => {
-        const docs = collection.find( query, fields);
+    GetDocuments: async (Model, query, fields) => {
+        const docs = Model.find( query, fields);
 
         if (!docs)
             throw new ApolloError("No documents found!");
         
         return docs
     },
-    UpdateDocument: async (Model, filter, fields) => {
-        const resp = Model.update(filter,fields)
-        console.log(resp)
-        if (!resp.acknowledged)
-            throw new ApolloError("No documents found!");
-        return resp
+    UpdateDocument: async (Model, _id, update) => {
+        return await Model.findOneAndUpdate( { _id: _id }, update, {
+            new: true,
+            runValidators: true
+        });
     }
-
 }
