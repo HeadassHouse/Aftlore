@@ -1,5 +1,3 @@
-# import * from './or.graphql'
-
 enum Operation {
     EQUALS
     CONTAINS

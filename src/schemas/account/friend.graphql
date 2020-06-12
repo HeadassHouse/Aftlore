@@ -1,10 +1,7 @@
 input FriendInput {
-    userName: String
-    name: String
+    _id: ID
 }
 
 type Friend {
     _id: ID
-    userName: String
-    name: String
 }
