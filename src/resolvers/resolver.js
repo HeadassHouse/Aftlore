@@ -9,7 +9,8 @@ module.exports = {
         }, 
         Mutation: {
             createAccount: AccountMutation.createAccount,
-            createMap: MapMutation.createMap
+            createMap: MapMutation.createMap,
+            editAccount: AccountMutation.editAccount
         }
     }
 }

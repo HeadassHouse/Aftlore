@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { ApolloError } = require('apollo-server');
+const { ApolloError, RenameRootFields } = require('apollo-server');
 
 module.exports = {
     Connect: async () => {
@@ -38,5 +38,13 @@ module.exports = {
             throw new ApolloError("No documents found!");
         
         return docs
+    },
+    UpdateDocument: async (Model, filter, fields) => {
+        const resp = Model.update(filter,fields)
+        console.log(resp)
+        if (!resp.acknowledged)
+            throw new ApolloError("No documents found!");
+        return resp
     }
+
 }

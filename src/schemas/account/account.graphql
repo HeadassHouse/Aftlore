@@ -1,5 +1,6 @@
 # import * from './friend.graphql'
 # import * from '../statusCode.graphql'
+# import * from '../updateAny/updateAny.graphql'
 
 input AccountInput {
     userName: String
@@ -24,4 +25,5 @@ type Query {
 
 type Mutation {
     createAccount(account: AccountInput!): StatusCode
+    editAccount(_id: ID!, update: UpdateAny!): StatusCode
 }

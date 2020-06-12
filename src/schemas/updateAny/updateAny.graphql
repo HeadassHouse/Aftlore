@@ -1,0 +1,4 @@
+input UpdateAny {
+    property: String
+    value: String
+}

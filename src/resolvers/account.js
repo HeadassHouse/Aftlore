@@ -1,7 +1,8 @@
-const { CreateDocument, GetDocument } = require('../utils/database');
+const { CreateDocument, GetDocument, UpdateDocument } = require('../utils/database');
 const { schema:Account } = require('../models/account');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const ObjectID = require('mongodb').ObjectID;
 
 
 module.exports = {
@@ -34,6 +35,23 @@ module.exports = {
                     return {
                         code: 200,
                         message: "Successfully inserted Account"
+                    }
+                })
+                .catch( (error) => {
+                    return {
+                        code: 400,
+                        message: error
+                    }
+                });
+        },
+        editAccount: async ( _, { _id, update } ) => {
+            const changedValue = {}
+            changedValue[update.property] = update.value
+            return UpdateDocument(mongoose.model('Account', Account), {_id: new ObjectID(_id)}, {$set:changedValue} )
+                .then( () => { 
+                    return {
+                        code: 200,
+                        message: "Successfully editted Account"
                     }
                 })
                 .catch( (error) => {
