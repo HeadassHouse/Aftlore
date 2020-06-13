@@ -16,7 +16,7 @@ type Map {
 }
 
 type Query {
-    getMap(id: String, where: And): Map
+    getMap(id: String, where: And): [Map]
 }
 
 type Mutation {
