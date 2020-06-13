@@ -38,7 +38,7 @@ test("Where clause is empty", () => {
         and: []
     }
 
-    const g = Where(And)
+    const g = Where(And);
 
-    expect(g).toEqual(null)
+    expect(g).toEqual(null);
 })

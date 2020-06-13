@@ -49,7 +49,7 @@ const Or = ( { operation, value, property } ) => {
 
 const And = (ORList) => {
     let or = null; 
-    ORList?.or?.forEach(OR => {
+    ORList.or.forEach(OR => {
         if (or){
             or.push(Or(OR) );
         } else {
@@ -61,14 +61,16 @@ const And = (ORList) => {
     
 module.exports = {
     Where: (ANDList) => {
-        let and = {}; 
-        ANDList?.and?.forEach(AND => {
-            if (and){
-                and["$and"].push(And(AND) );
-            } else {
-                and.$and = [ And(AND) ];
-            }
-        });
+        let and = null; 
+        if (ANDList.and) {
+            ANDList.and.forEach(AND => {
+                if (and){
+                    and.$and.push(And(AND) );
+                } else {
+                    and = { ["$and"]: [ And(AND) ] };
+                }
+            });
+        }
         
         if ( getArgs().verbose )
             console.log(and);

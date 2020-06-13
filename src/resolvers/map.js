@@ -16,10 +16,7 @@ module.exports = {
                     return [result]
                 })
                 .catch( (error) => {
-                    return {
-                        code: 400,
-                        message: error
-                    }
+                    return [ ]
                 });        
             } 
             else if (where){
@@ -28,10 +25,7 @@ module.exports = {
                     return result
                 })
                 .catch( (error) => {
-                    return {
-                        code: 400,
-                        message: error
-                    }
+                    return [ ];
                 }); 
             } 
             else {

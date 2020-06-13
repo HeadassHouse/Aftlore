@@ -45,13 +45,13 @@ module.exports = {
             return doc;
     },
 
-    GetDocuments: async (Model, query, fields) => {
-        const docs = Model.find( query, fields);
+    GetDocuments: async (Model, query) => {
+        const docs = await Model.find( query );
 
         if (!docs)
             throw new ApolloError("No documents found!");
-        
-        return docs
+        else
+            return docs
     },
 
     UpdateDocument: async (Model, _id, update) => {
