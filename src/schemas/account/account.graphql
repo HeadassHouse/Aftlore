@@ -2,6 +2,7 @@
 # import * from '../statusCode.graphql'
 # import * from '../updateAny/updateAny.graphql'
 
+
 input AccountInput {
     userName: String
     name: String

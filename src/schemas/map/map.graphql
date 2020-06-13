@@ -1,6 +1,7 @@
 # import * from './tile.graphql'
 # import * from '../where/where.graphql'
 # import * from '../statusCode.graphql'
+# import * from '../updateAny/updateAny.graphql'
 
 input MapInput {
     imageLink: String
@@ -21,4 +22,5 @@ type Query {
 
 type Mutation {
     createMap(map: MapInput!): StatusCode
+    editMap(_id: ID!, update: UpdateAny!): StatusCode
 }
