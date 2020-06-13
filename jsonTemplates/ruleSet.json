@@ -1,0 +1,87 @@
+{
+    "comment": "This is what a rule set will look like",
+    "ruleSet": {
+        "_id": "_id",
+        "characterDefinitions": {
+            "shared": {
+                "stats": [
+                    {
+                        "name": "hit points",
+                        "defaultValue": 10,
+                        "minValue": 0,
+                        "maxValue": 400,
+                        "rollModifer": 0,
+                        "associatedSkills": [ ]
+                    },
+                    {
+                        "name": "dexterity",
+                        "defaultValue": 10,
+                        "minValue": 1,
+                        "maxValue": 20,
+                        "rollModifer": 0,
+                        "associatedSkills": [
+                            "acrobatics",
+                            "stealth"
+                        ]
+                    },
+                    {
+                        "name": "constitution",
+                        "defaultValue": 10,
+                        "minValue": 1,
+                        "maxValue": 20,
+                        "rollModifer": -1,
+                        "associatedSkills": [ ]
+                    }
+                ],
+                "characteristics": [
+                    {
+                        "type": "alignment",
+                        "value": "Chaotic Neutral",
+                        "modifiers": []
+                    },
+                    {
+                        "type": "level",
+                        "value": "10",
+                        "modifiers": []
+                    },
+                    {
+                        "type": "race",
+                        "value": "orc",
+                        "modifiers": [
+                            {
+                                "type": "roll",
+                                "stat": "strength",
+                                "modifier": 3 
+                            },
+                            {
+                                "type": "stat",
+                                "stat": "constitution",
+                                "modifier": -1
+                            }
+                        ]
+                    },
+                    {
+                        "type": "class",
+                        "value": "warrior"
+                    },
+                    {
+                        "type": "subclass",
+                        "value": "palladin"
+                    }
+                ]
+            },
+            "npcs": {
+                
+            }
+                
+            },
+            "players": {
+
+            }
+            
+        }
+            
+           
+        ] 
+    }
+}

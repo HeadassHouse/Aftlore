@@ -79,5 +79,10 @@ module.exports = {
                     }
                 });
         }
+    },
+    Subscription: {
+        tileUpdated: () => {
+            
+        }
     }
 }

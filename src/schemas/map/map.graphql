@@ -25,3 +25,7 @@ type Mutation {
     editMap(_id: ID!, update: UpdateAny!): StatusCode
     deleteMap(_id: ID!): StatusCode
 }
+
+type Subscription {
+  tileUpdated(mapId: ID!): Tile
+}
