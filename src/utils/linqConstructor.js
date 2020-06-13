@@ -36,19 +36,20 @@ const Or = ( { operation, value, property } ) => {
             case "GTE": // GTE operation
                 return { [property]: { $gte: value } };   
             case "NE": // NE operation
-                return { [property]: { $ne: value } }                                                 
+                return { [property]: { $ne: value } }    
+            default:
+                throw `NOT_AN_OP`;                          
         }
-        
     }
     catch(err) {
-        return new Error(`Data type could not be properly compared! Error: ${err}`)
+        throw `Data type could not be properly compared! Error: ${err}`
     }
     
 }
 
 const And = (ORList) => {
     let or = null; 
-    ORList.or.forEach(OR => {
+    ORList?.or?.forEach(OR => {
         if (or){
             or.push(Or(OR) );
         } else {
@@ -60,17 +61,17 @@ const And = (ORList) => {
     
 module.exports = {
     Where: (ANDList) => {
-        let and = null; 
-        ANDList.and.forEach(AND => {
+        let and = {}; 
+        ANDList?.and?.forEach(AND => {
             if (and){
-                and.push(And(AND) );
+                and["$and"].push(And(AND) );
             } else {
-                and = [ And(AND) ];
+                and.$and = [ And(AND) ];
             }
         });
         
         if ( getArgs().verbose )
             console.log(and);
-        return { $and: and };
+        return and;
     }
 }
