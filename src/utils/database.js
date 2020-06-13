@@ -17,10 +17,17 @@ module.exports = {
             .then( () => `Successfully connected to db`)
             .catch( (error) => `Could not connect to db. Error: ${error}`); 
     },
+
     CreateDocument: async (Model, payload) => {
         return new Model(payload).save()
             .catch( (error) => { throw new ApolloError(error) } );
     },
+
+    DeleteDocument: async (Model, payload) => {
+        return new Model(payload).deleteOne( payload )
+            .catch( (error) => { throw new ApolloError(error) } );
+    },
+
     GetDocument: async (Model, query, fields = null) => {
         const doc = Model.findOne( query );
         
@@ -29,6 +36,7 @@ module.exports = {
         else
             return doc;
     },
+
     GetDocuments: async (Model, query, fields) => {
         const docs = Model.find( query, fields);
 
@@ -37,6 +45,7 @@ module.exports = {
         
         return docs
     },
+
     UpdateDocument: async (Model, _id, update) => {
         return await Model.findOneAndUpdate( { _id: _id }, update, {
             new: true,

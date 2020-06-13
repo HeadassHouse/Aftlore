@@ -5,13 +5,14 @@ module.exports = {
     resolver: {
         Query:{
             login: AccountQuery.login,
-            getMap: MapQuery.getMap
+            getMap: MapQuery.getMap,
         }, 
         Mutation: {
             createAccount: AccountMutation.createAccount,
             createMap: MapMutation.createMap,
             editAccount: AccountMutation.editAccount,
-            editMap: MapMutation.editMap
+            editMap: MapMutation.editMap,
+            deleteMap: MapMutation.deleteMap,
         }
     }
 }

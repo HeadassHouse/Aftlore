@@ -69,6 +69,21 @@ module.exports = {
                         message: error
                     }
                 });
+        },
+        deleteMap: async ( _, { _id } ) => {
+            return db.DeleteDocument(mongoose.model('Map', Map), { _id : _id } )
+                .then( ( ) => {
+                    return {
+                        code: 200,
+                        message: "Successfully deleted Map",
+                    }
+                })
+                .catch( (error) => {
+                    return {
+                        code: 400,
+                        message: error
+                    }
+                });
         }
     }
 }
