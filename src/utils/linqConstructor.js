@@ -3,80 +3,74 @@
 //     "where": {
 //         "and": [{
 //             "or": [{
-//                 "operator": EQUALS,
-//                 "property": "id",
+//                 "operation": "EQUALS",
+//                 "property": "_id",
 //                 "value": "kjd8ddf9isd93k3-d-3-d3e3ed3-3dds"
 //             },
 //             {
-//                 "operator": EQUALS,
-//                 "property": "id",
+//                 "operation": "EQUALS",
+//                 "property": "_id",
 //                 "value": "zsdsdsdsdsdcksj-d-3-d3e3ed3-3dds"
 //             }]
 //         }]
 //     }
 // }
 //
-// This translates to SELECT * FROM maps WHERE id="kjd8ddf9isd93k3-d-3-d3e3ed3-3dds" OR id="zsdsdsdsdsdcksj-d-3-d3e3ed3-3dds"
+// This translates to 
 // The WHERE clause is built by the following functions
-
 const getArgs = require('./proccessCommandLineArgs')
 
-function Or(filter) { 
+const Or = ( { operation, value, property } ) => { 
     try {
-        switch(filter["operation"]) {
-            case 0: // EQUALS operation
-                return `${filter.property}="${filter.value}"`;
-            case 1: // CONTAINS operation
-                return `${filter.property} LIKE ("%${filter.value}%")`;
-            case 2: // LT operation
-                return `${filter.property}<${Number(filter.value)}`;                    
-            case 3: // LTE operation
-                return `${filter.property}<=${Number(filter.value)}`;                                        
-            case 4: // GT operation
-                return `${filter.property}>${Number(filter.value)}`;                                                    
-            case 5: // GTE operation
-                return `${filter.property}>=${Number(filter.value)}`;                                                    
+        switch(operation) {
+            case "EQUALS": // EQUALS operation
+                return { [property]: value };
+            case "CONTAINS": // CONTAINS operation
+                return { [property]: `/${value}/` };
+            case "LT": // LT operation
+                return { [property]: { $lt: value } };                    
+            case "LTE": // LTE operation
+                return { [property]: { $lte: value } };                                        
+            case "GT": // GT operation
+                return { [property]: { $gt: value } };                                                    
+            case "GTE": // GTE operation
+                return { [property]: { $gte: value } };   
+            case "NE": // NE operation
+                return { [property]: { $ne: value } }                                                 
         }
+        
     }
-    catch(e) {
-        return new Error("Data type could not be properly compared!")
+    catch(err) {
+        return new Error(`Data type could not be properly compared! Error: ${err}`)
     }
     
 }
 
-function And(ORList) {
+const And = (ORList) => {
     let or = null; 
     ORList.or.forEach(OR => {
         if (or){
-            or = {
-                or, 
-                Or(OR)
-            }  
+            or.push(Or(OR) );
         } else {
-            or = Or(OR);
+            or = [ Or(OR) ];
         }
     });
-    return or;
-}
-
-function Where(ANDList) {
-    let and = null;
-    ANDList.and.forEach(AND => {
-        if (and){
-            and = {
-                and, 
-                And(AND)
-            };    
-        } else {
-            and = And(AND);
-        }
-    });
-    // Print the actual command that is generated ONLY WITH verbose CLARG
-    if ( getArgs().verbose )
-        console.log(and);
-    return and;
+    return { $or: or };
 }
     
 module.exports = {
-    Where
+    Where: (ANDList) => {
+        let and = null; 
+        ANDList.and.forEach(AND => {
+            if (and){
+                and.push(And(AND) );
+            } else {
+                and = [ And(AND) ];
+            }
+        });
+        
+        if ( getArgs().verbose )
+            console.log(and);
+        return { $and: and };
+    }
 }

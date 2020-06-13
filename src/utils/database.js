@@ -14,7 +14,8 @@ module.exports = {
                 dbName: 'loremaster',
                 useUnifiedTopology: true 
             })
-            .then(() => `Successfully connected to db`); 
+            .then( () => `Successfully connected to db`)
+            .catch( (error) => `Could not connect to db. Error: ${error}`); 
     },
     CreateDocument: async (Model, payload) => {
         return new Model(payload).save()

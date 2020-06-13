@@ -1,6 +1,7 @@
 const { ApolloError } = require('apollo-server');
 const { CreateDocument, GetDocument } = require('../utils/database');
 const { schema:Map } = require('../models/map');
+const { Where } = require('../utils/linqConstructor');
 
 module.exports = {
     Query: {
@@ -9,10 +10,10 @@ module.exports = {
                 throw new ApolloError("Cannot specify id and where clause!");
             } 
             else if (id) {    
-                
+                throw new ApolloError("Not implemented");
             } 
             else if (where){
-                
+                throw new ApolloError("Not implemented");
             } 
             else {
                 throw new ApolloError("Must provide an id or a where clause!");
@@ -20,7 +21,7 @@ module.exports = {
         }
     },
     Mutation: {
-        createMap: (_, { map }) => {
+        createMap: ( _ , { map }) => {
             return CreateDocument(Map, map)
                 .then( () => { 
                     return {
