@@ -23,5 +23,5 @@ type Query {
 type Mutation {
     createMap(map: MapInput!): StatusCode
     editMap(_id: ID!, update: UpdateAny!): StatusCode
-    deleteMap(_id: ID!): StatusCode
+    deleteMap(_id: ID, where: And): StatusCode
 }
