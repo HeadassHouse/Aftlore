@@ -24,9 +24,17 @@ module.exports = {
     },
 
     DeleteDocument: async (Model, payload) => {
-        return new Model(payload).deleteOne( payload )
-            .catch( (error) => { throw new ApolloError(error) } );
+        const doc = Model.deleteOne( payload )
+        if (!doc)
+            throw new ApolloError("Document not found!");
+        else
+            return doc;
     },
+
+    // DeleteDocuments: async (Model, payload) => {
+    //     return new Model(payload).deleteOne( payload )
+    //         .catch( (error) => { throw new ApolloError(error) } );
+    // },
 
     GetDocument: async (Model, query, fields = null) => {
         const doc = Model.findOne( query );
