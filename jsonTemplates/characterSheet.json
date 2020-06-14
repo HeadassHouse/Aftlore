@@ -1,0 +1,86 @@
+{
+    "commment": "NOTE Add ability to track roll modifiers in character definition",
+    "anotherComment": "This is the character Sheet definition",
+    "character": {
+        "name": "Jerry Smith",
+        "stats": [
+            {
+                "name": "hit points",
+                "value": 100,
+                "rollModifer": 0,
+                "associatedSkills": [ ]
+            },
+            {
+                "name": "dexterity",
+                "value": 10,
+                "rollModifer": 0,
+                "associatedSkills": [
+                    {
+                        "name": "acrobatics",
+                        "rollModifer": 0
+                    },
+                    {
+                        "name": "stealth",
+                        "rollModifer": 10
+                    }
+                ]
+            },
+            {
+                "name": "constitution",
+                "value": 9,
+                "rollModifer": -1,
+                "associatedSkills": [ ]
+            }
+        ],
+        "characteristics": [
+            {
+                "type": "alignment",
+                "value": "Chaotic Neutral"
+            },
+            {
+                "type": "level",
+                "value": "10"
+            },
+            {
+                "type": "race",
+                "value": "orc"
+            },
+            {
+                "type": "class",
+                "value": "warrior"
+            },
+            {
+                "type": "subclass",
+                "value": "palladin"
+            }
+        ],
+        "inventory": [
+            {
+                "name": "Water Canteen",
+                "stackable": true,
+                "quantity": 10,
+                "ammo": 4
+            },
+            {
+                "name": "Armor",
+                "stackable": false,
+                "quantity": 1,
+                "ammo": 4
+            }
+        ],
+        "abilities": [
+            {
+                "name": "The Spell TM",
+                "uses": 1
+            },
+            {
+                "name": "This is a spell",
+                "uses": 4
+            }
+        ],
+        "notes": [
+            "Saving Throws: 1d4",
+            "Other notes"
+        ]
+    } 
+}

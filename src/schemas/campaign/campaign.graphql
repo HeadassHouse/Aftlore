@@ -1,0 +1,20 @@
+# import '../utils/utils.graphql'
+# import './character.graphql'
+# import './ruleset.graphql'
+
+type Campaign {
+    _id: ID
+    maps: [String]
+    ruleset: Ruleset
+    notes: [String]
+    characters: [Character]
+    npcs: [String]
+}
+
+input CampaignInput {
+    maps: [String]
+    ruleset: Ruleset
+    notes: [String]
+    characters: [Character]
+    npcs: [String]
+}

@@ -76,7 +76,7 @@ The query:
 {
     "query":"
         query { 
-            account(userName: \"bsmith45\", password: \"pa$$word45\"){
+            login(userName: \"bsmith45\", password: \"pa$$word45\"){
                 name
                 userName
                 email

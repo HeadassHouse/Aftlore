@@ -1,0 +1,35 @@
+"""STATUS CODE"""
+type StatusCode {
+    code: String
+    message: String
+}
+
+"""UPDATE ANY"""
+input UpdateAny {
+    property: String
+    value: String
+}
+
+"""WHERE CLAUSES"""
+enum Operation {
+    EQUALS
+    CONTAINS
+    LT
+    LTE
+    GT
+    GTE
+}
+
+input RequestFilter {
+    operation: Operation
+    value: String
+    property: String
+}
+
+input Or {
+    or: [ RequestFilter ]
+}
+
+input And {
+    and: [ Or ]
+}

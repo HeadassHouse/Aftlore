@@ -103,6 +103,10 @@ module.exports = {
             }
             
         }
-
+    },
+    Subscription: {
+        tileUpdated: () => {
+            
+        }
     }
 }
