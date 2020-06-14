@@ -64,8 +64,12 @@ module.exports = {
                     }
                 });
         },
-        deleteMap: async ( _, { _id } ) => {
-            return db.DeleteDocument(mongoose.model('Map', Map), { _id : _id } )
+        deleteMap: async ( _, { _id, where } ) => {
+            if (_id && where) {
+                throw new ApolloError("Cannot specify id and where clause!");
+            }
+            else if(_id){
+                return db.DeleteDocument(mongoose.model('Map', Map), { _id : _id } )
                 .then( ( ) => {
                     return {
                         code: 200,
@@ -78,6 +82,26 @@ module.exports = {
                         message: error
                     }
                 });
+            }
+            else if(where){
+                return db.DeleteDocuments(mongoose.model('Map', Map), Where(where) )
+                .then( async (result) => {
+                    return {
+                        code: 200,
+                        message: JSON.stringify(result)
+                    }
+                })
+                .catch( (error) => {
+                    return {
+                        code: 400,
+                        message: error
+                    }
+                }); 
+            }
+            else {
+                throw new ApolloError("Must provide an id or a where clause!");
+            }
+            
         }
     },
     Subscription: {
