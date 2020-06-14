@@ -1,20 +1,46 @@
 # import '../utils/utils.graphql'
 # import './character.graphql'
 # import './ruleset.graphql'
+# import '../map.graphql'
 
 type Campaign {
-    _id: ID
-    maps: [String]
-    ruleset: Ruleset
-    notes: [String]
-    characters: [Character]
-    npcs: [String]
+    _id: ID!
+    name: String!
+    dm: ID!
+    description: String!
+    characters: [Character]!
+    rule: Ruleset!
+    maps: [Map]!
+    
 }
 
 input CampaignInput {
-    maps: [String]
-    ruleset: Ruleset
-    notes: [String]
+    _id: ID!
+    name: String!
+    dm: ID!
+    description: String!
+    characters: [Character]!
+    rule: Ruleset!
+    maps: [Map]!
+    
+}
+
+input CampaignEdit {
+    name: String
+    dm: ID
+    description: String
     characters: [Character]
-    npcs: [String]
+    rule: Ruleset
+    maps: [Map]
+    
+}
+
+type Query {
+    getCampaign(_id: ID!): Campaign
+}
+
+type Mutation {
+    createCampaign(campaign: CampaignInput!): StatusCode
+    editCampaign(campaign: CampaignEdit!): StatusCode
+    deleteCampaign(_id: ID!): StatusCode
 }

@@ -1,0 +1,51 @@
+type Stat {
+    _id: ID!
+    name: String!
+    value: Int!
+    rollmodifier: Int!
+    associatedSkills: [AssocSkill]!
+}
+
+input StatInput {
+    name: String!
+    value: Int!
+    rollmodifier: Int!
+    associatedSkills: [AssocSkill]!
+}
+
+input StatEdit {
+    name: String
+    value: Int
+    rollmodifier: Int
+    associatedSkills: [AssocSkill]
+}
+
+type AssocSkill {
+    _id: ID!
+    name: String!
+    rollmodifier: Int!
+}
+
+input AssocSkillInput {
+    name: String!
+    rollmodifier: Int!
+}
+
+input AssocSkillEdit {
+    name: String
+    rollmodifier: Int
+}
+
+type Query {
+    getAssocSkill(_id: ID!): Character
+    getStat( _id: ID!): Character
+}
+
+type Mutation {
+    createAssocSkill(assocSkill: AssocSkillInput!): StatusCode
+    editAssocSkill(character: AssocSkillEdit!): StatusCode
+    deleteAssocSkill(_id: ID!): StatusCode
+    createStat(stat: StatInput!): StatusCode
+    editStat(stat: StatEdit!): StatusCode
+    deleteStat(_id: ID!): StatusCode
+}

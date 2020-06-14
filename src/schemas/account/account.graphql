@@ -1,6 +1,6 @@
 # import * from './friend.graphql'
-# import * from '../statusCode.graphql'
-# import * from '../updateAny/updateAny.graphql'
+# import '../utils/utils.graphql'
+
 
 
 input AccountInput {

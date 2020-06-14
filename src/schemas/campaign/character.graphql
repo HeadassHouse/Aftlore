@@ -1,0 +1,43 @@
+# import '../utils/utils.graphql'
+# import './stat.graphql'
+# import './characteristic.graphql'
+type Character {
+    _id: ID!
+    name: String!
+    stats: [Stat!]!
+    characteristics:[Characteristic!]!
+    inventory:[items]!
+    abilities:[ability]!
+    notes:[String]
+    
+}
+
+input CharacterInput {
+    name: String!
+    stats: [Stat!]!
+    characteristics:[Characteristic!]!
+    inventory:[Item]!
+    abilities:[Ability]!
+    notes:[String]
+    
+}
+
+input CharacterEdit {
+    name: String
+    stats: [Stat!]
+    characteristics:[Characteristic]
+    inventory:[Item]
+    abilities:[Ability]
+    notes:[String]
+    
+}
+
+type Query {
+    getCharacter(_id: ID!): Character
+}
+
+type Mutation {
+    createCharacter(character: CharacterInput!): StatusCode
+    editCharacter(character: CharacterEdit!): StatusCode
+    deleteCharacter(_id: ID!): StatusCode
+}
