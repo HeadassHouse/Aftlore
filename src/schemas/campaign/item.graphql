@@ -1,0 +1,32 @@
+# import '../utils/utils.graphql'
+type Item {
+    _id: ID!
+    name: String
+    stackable: Boolean
+    quantity: Int
+    ammo: Int
+}
+
+input ItemInput {
+    name: String!
+    stackable: Boolean!
+    quantity: Int!
+    ammo: Int!
+}
+
+input ItemEdit {
+    name: String
+    stackable: Boolean
+    quantity: Int
+    ammo: Int
+}
+
+type Query {
+    getItem(_id: ID!): Item
+}
+
+type Mutation {
+    createItem(item: ItemInput!): StatusCode
+    editItem(item: ItemEdit!): StatusCode
+    deleteItem(_id: ID!): StatusCode
+}

@@ -1,6 +1,8 @@
 # import '../utils/utils.graphql'
 # import './stat.graphql'
 # import './characteristic.graphql'
+# import './item.graphql'
+# import './ability.graphql'
 type Character {
     _id: ID!
     name: String!

@@ -1,0 +1,26 @@
+# import '../utils/utils.graphql'
+type Ability {
+    _id: ID
+    name: String
+    uses: Int
+}
+
+input AbilityInput {
+    name: String!
+    uses: Int!
+}
+
+input AbilityEdit {
+    name: String
+    uses: Int
+}
+
+type Query {
+    getAbility(_id: ID!): Ability
+}
+
+type Mutation {
+    createAbility(ability: AbilityInput!): StatusCode
+    editAbility(ability: AbilityEdit!): StatusCode
+    deleteAbility(_id: ID!): StatusCode
+}
