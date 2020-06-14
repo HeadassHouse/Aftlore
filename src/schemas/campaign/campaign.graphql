@@ -2,15 +2,16 @@
 # import './character.graphql'
 # import './ruleset.graphql'
 # import '../map.graphql'
+# import '../ruleset/ruleset.graphql'
 
 type Campaign {
-    _id: ID!
-    name: String!
-    dm: ID!
-    description: String!
-    characters: [Character]!
-    rule: Ruleset!
-    maps: [Map]!
+    _id: ID
+    name: String
+    dm: ID
+    description: String
+    characters: [Character]
+    rule: Ruleset
+    maps: [Map]
     
 }
 

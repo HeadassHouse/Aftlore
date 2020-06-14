@@ -1,0 +1,29 @@
+type Effect{
+    _id: ID
+    stat: String
+    passiveModifier: Int
+    diceModifier: Boolean
+    dice: String
+}
+input EffectInput{
+    stat: String!
+    passiveModifier: Int!
+    diceModifier: Boolean!
+    dice: String!
+}
+input EffectEdit{
+    stat: String
+    passiveModifier: Int
+    diceModifier: Boolean
+    dice: String
+}
+
+type Query {
+    getEffect(_id: ID!): Effect
+}
+
+type Mutation {
+    createEffect(ruleset: EffectInput!): StatusCode
+    editEffect(ruleset: EffectEdit!): StatusCode
+    deleteEffect(_id: ID!): StatusCode
+}

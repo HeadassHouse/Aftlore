@@ -1,0 +1,22 @@
+# import '../utils/utils.graphql'
+type StatDefinition{
+    _id: ID
+    name: String
+    defaultValue: Int
+    minValue: Int
+    maxValue: Int
+    rollModifier: Int
+    associatedSkills: [String]
+}
+
+
+type Query {
+    getStatDefinition(_id: ID!): StatDefinition
+}
+
+type Mutation {
+    createStatDefinition(ruleset: StatDefinitionInput!): StatusCode
+    editStatDefinition(ruleset: StatDefinitionEdit!): StatusCode
+    deleteStatDefinition(_id: ID!): StatusCode
+}
+

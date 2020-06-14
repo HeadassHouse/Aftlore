@@ -1,0 +1,26 @@
+# import '../utils/utils.graphql'
+type CharacteristicMod{
+    _id: ID
+    type: String
+    modifier: Int
+    
+}
+input CharacteristicModInput{
+    type: String!
+    modifier: Int!
+    
+}
+input CharacteristicModEdit{
+    type: String
+    modifier: Int
+    
+}
+type Query {
+    getCharacteristicMod(_id: ID!): CharacteristicMod
+}
+
+type Mutation {
+    createCharacteristicMod(ruleset: CharacteristicModInput!): StatusCode
+    editCharacteristicMod(ruleset: CharacteristicModEdit!): StatusCode
+    deleteCharacteristicMod(_id: ID!): StatusCode
+}

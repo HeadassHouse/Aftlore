@@ -1,0 +1,40 @@
+# import '../utils/utils.graphql'
+# import './statdef.graphql'
+# import './characteristicdef.graphql'
+# import './itemdef/itemdef.graphql'
+# import './abilitydef/abilitydef.graphql'
+type CharacterDefinition{
+    _id: ID
+    stats: [StatDefinition]
+    characteristics: [CharacteristicDefinition]
+    items: [ItemDefinition]
+    abilities: [AbilityDefinition]
+    
+}
+
+input CharacterDefinitionInput{
+    stats: [StatDefinition]!
+    characteristics: [CharacteristicDefinition]!
+    items: [ItemDefinition]!
+    abilities: [AbilityDefinition]!
+    
+}
+
+input CharacterDefinitionEdit{
+    stats: [StatDefinition]
+    characteristics: [CharacteristicDefinition]
+    items: [ItemDefinition]
+    abilities: [AbilityDefinition]
+    
+}
+
+type Query {
+    getCharacterDefinition(_id: ID!): CharacterDefinition
+}
+
+type Mutation {
+    createCharacterDefinition(ruleset: CharacterDefinitionInput!): StatusCode
+    editCharacterDefinition(ruleset: CharacterDefinitionEdit!): StatusCode
+    deleteCharacterDefinition(_id: ID!): StatusCode
+}
+

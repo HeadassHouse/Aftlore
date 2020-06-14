@@ -1,0 +1,25 @@
+# import '../utils/utils.graphql'
+# import './characteristicval.graphql'
+type CharacteristicDefinition{
+    _id: ID
+    type: String
+    values: [CharacteristicValue]
+}
+input CharacteristicDefinitionInput{
+    type: String!
+    values: [CharacteristicValue]!
+}
+input CharacteristicDefinitionEdit{
+    _id: ID
+    type: String
+    values: [CharacteristicValue]
+}
+type Query {
+    getCharacteristicDefinition(_id: ID!): CharacteristicDefinition
+}
+
+type Mutation {
+    createCharacteristicDefinition(ruleset: CharacteristicDefinitionInput!): StatusCode
+    editCharacteristicDefinition(ruleset: CharacteristicDefinitionEdit!): StatusCode
+    deleteCharacteristicDefinition(_id: ID!): StatusCode
+}
