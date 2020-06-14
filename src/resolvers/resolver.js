@@ -1,5 +1,5 @@
 const { Query: AccountQuery, Mutation: AccountMutation } = require('./account');
-const { Query: MapQuery, Mutation: MapMutation } = require('./map');
+const { Query: MapQuery, Mutation: MapMutation, Subscription: MapSubscription } = require('./map');
 
 module.exports = {
     resolver: {
@@ -13,6 +13,9 @@ module.exports = {
             editAccount: AccountMutation.editAccount,
             editMap: MapMutation.editMap,
             deleteMap: MapMutation.deleteMap,
+        },
+        Subscription: {
+            mapUpdated: MapSubscription.mapUpdated
         }
     }
 }
