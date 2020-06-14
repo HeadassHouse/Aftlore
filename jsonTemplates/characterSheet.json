@@ -58,12 +58,14 @@
             {
                 "name": "Water Canteen",
                 "stackable": true,
-                "quantity": 10
+                "quantity": 10,
+                "ammo": 4
             },
             {
                 "name": "Armor",
                 "stackable": false,
-                "quantity": 1
+                "quantity": 1,
+                "ammo": 4
             }
         ],
         "abilities": [
