@@ -4,6 +4,12 @@
 # import * from '../updateAny/updateAny.graphql'
 
 input MapInput {
+    imageLink: String!
+    name: String!
+    tiles: [TileInput]
+}
+
+input MapUpdate {
     imageLink: String
     name: String
     tiles: [TileInput]
@@ -22,7 +28,7 @@ type Query {
 
 type Mutation {
     createMap(map: MapInput!): StatusCode
-    editMap(_id: ID!, update: UpdateAny!): StatusCode
+    editMap(_id: ID!, update: MapUpdate!): Map
     deleteMap(_id: ID!): StatusCode
 }
 

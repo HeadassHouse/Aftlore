@@ -52,20 +52,14 @@ module.exports = {
                     }
                 });
         },
-        editMap: async ( _, { _id, update: { property, value} } ) => {
-            return db.UpdateDocument(mongoose.model('Map', Map), _id, { [property]: value } )
+        editMap: async ( _, { _id, update } ) => {
+            return db.UpdateDocument(mongoose.model('Map', Map), { _id: _id }, update )
                 .then( ( result ) => {
                     pubsub.publish(MAP_UPDATED, { mapUpdated: result } );
-                    return {
-                        code: 200,
-                        message: "Successfully edited Map",
-                    }
+                    return result;
                 })
                 .catch( (error) => {
-                    return {
-                        code: 400,
-                        message: error
-                    }
+                    return new ApolloError("Error updating the map!")
                 });
         },
         deleteMap: async ( _, { _id, where } ) => {

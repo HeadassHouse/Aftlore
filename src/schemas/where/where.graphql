@@ -11,6 +11,7 @@ input RequestFilter {
     operation: Operation
     value: String
     property: String
+    subProperty: RequestFilter
 }
 
 input Or {

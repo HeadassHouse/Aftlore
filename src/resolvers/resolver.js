@@ -11,6 +11,7 @@ module.exports = {
             createAccount: AccountMutation.createAccount,
             createMap: MapMutation.createMap,
             editAccount: AccountMutation.editAccount,
+            changePassword: AccountMutation.changePassword,
             editMap: MapMutation.editMap,
             deleteMap: MapMutation.deleteMap,
         },
