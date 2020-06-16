@@ -1,5 +1,4 @@
 const { Where } = require('../linqConstructor');
-const { ApolloError } = require('apollo-server');
 
 test("Where returns a filter an appropriate filter object", () => {
     const And = {
@@ -33,12 +32,8 @@ test("Where will throw an error when the operation does not exist", () => {
     }
 })
 
-test("Where clause is empty", () => {
-    const And = {
-        and: []
-    }
+test("Where clause is empty and returns an empty json object", () => {
+    const And = {}
 
-    const g = Where(And);
-
-    expect(g).toEqual(null);
+    expect( Where(And) ).toEqual({});
 })

@@ -74,6 +74,6 @@ module.exports = {
         
         if ( getArgs().verbose )
             console.log(JSON.stringify(and));
-        return and;
+        return (and) ? and : { };
     }
 }
