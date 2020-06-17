@@ -23,7 +23,7 @@ type Map {
 }
 
 type Query {
-    getMap(id: String, where: And): [Map]
+    getMap(_id: String, where: And): [Map]
 }
 
 type Mutation {

@@ -1,0 +1,16 @@
+enum EntityType {
+    CHARACTER
+    NPC
+    ITEM
+}
+
+input EntityInput {
+    type: EntityType!
+    associatedId: ID!
+}
+
+type Entity {
+    _id: ID
+    type: EntityType
+    associatedId: ID
+}

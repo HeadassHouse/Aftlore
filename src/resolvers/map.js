@@ -1,8 +1,8 @@
 const { ApolloError, PubSub } = require('apollo-server');
+const mongoose = require('mongoose');
 const db = require('../utils/database');
 const { schema:Map } = require('../models/map');
 const { Where } = require('../utils/linqConstructor');
-const mongoose = require('mongoose');
 
 const pubsub = new PubSub();
 const MAP_UPDATED = 'MAP_UPDATED';
