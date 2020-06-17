@@ -1,11 +1,11 @@
 const { model, Schema } = require('mongoose');
 
 const AccountSchema = new Schema({
-    userName: { type: String },
-    name: { type: String },
-    email: { type: String },
-    password: { type: String },
-    friends: { type: [ String ] }
+    userName: String ,
+    name: String,
+    email: String,
+    password: String,
+    friends: [ String ]
 });
 
 module.exports = { 

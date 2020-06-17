@@ -73,7 +73,7 @@ module.exports = {
         }
         
         if ( getArgs().verbose )
-            console.log(and);
-        return and;
+            console.log(JSON.stringify(and));
+        return (and) ? and : { };
     }
 }

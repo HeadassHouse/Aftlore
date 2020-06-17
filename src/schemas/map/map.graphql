@@ -3,6 +3,12 @@
 # import '../utils/utils.graphql'
 
 input MapInput {
+    imageLink: String!
+    name: String!
+    tiles: [TileInput]
+}
+
+input MapUpdate {
     imageLink: String
     name: String
     tiles: [TileInput]
@@ -16,15 +22,15 @@ type Map {
 }
 
 type Query {
-    getMap(id: String, where: And): [Map]
+    getMap(_id: String, where: And): [Map]
 }
 
 type Mutation {
     createMap(map: MapInput!): StatusCode
-    editMap(_id: ID!, update: UpdateAny!): StatusCode
+    editMap(_id: ID!, update: MapUpdate!): Map
     deleteMap(_id: ID!): StatusCode
 }
 
 type Subscription {
-  tileUpdated(mapId: ID!): Tile
+  mapUpdated: Map
 }

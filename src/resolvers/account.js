@@ -1,4 +1,5 @@
 const { CreateDocument, GetDocument, UpdateDocument } = require('../utils/database');
+const { ApolloError } = require('apollo-server');
 const { schema:Account } = require('../models/account');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
@@ -15,7 +16,7 @@ module.exports = {
                         return result;
                     }
                     else {
-                        return new Error("Incorrect login information");
+                        return new ApolloError("Incorrect login information");
                     }
                 })
                 .catch( (error) => {
@@ -44,6 +45,9 @@ module.exports = {
                 });
         },
         editAccount: async ( _, { _id, update: { property, value} } ) => {
+            if (property == "password")
+                return new ApolloError("Must use changePassword for updating password");
+            
             return UpdateDocument(mongoose.model('Account', Account), _id, { [property]: value} )
                 .then( ( ) => { 
                     return {
@@ -57,6 +61,29 @@ module.exports = {
                         message: error
                     }
                 });
+        },
+        changePassword: async ( _, { _id, oldPassword, newPassword } ) => {
+            const account = await GetDocument( mongoose.model('Account', Account), { _id: _id } );
+
+            if ( account && await bcrypt.compare(oldPassword, account.password) ){
+                newPassword = await bcrypt.hash(String(newPassword), 10);
+                return UpdateDocument(mongoose.model('Account', Account), { _id: _id } , { password: newPassword} )
+                    .then( ( ) => { 
+                        return {
+                            code: 200,
+                            message: "Successfully changed password"
+                        }
+                    })
+                    .catch( (error) => {
+                        return {
+                            code: 400,
+                            message: error
+                        }
+                    });
+            }
+            else {
+                return new ApolloError("Old password is not correct");
+            }
         }
     }
 }

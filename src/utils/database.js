@@ -57,8 +57,8 @@ module.exports = {
             return docs
     },
 
-    UpdateDocument: async (Model, _id, update) => {
-        return await Model.findOneAndUpdate( { _id: _id }, update, {
+    UpdateDocument: async (Model, query, update) => {
+        return await Model.findOneAndUpdate( query, update, {
             new: true,
             runValidators: true
         });

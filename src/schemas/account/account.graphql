@@ -4,10 +4,10 @@
 
 
 input AccountInput {
-    userName: String
-    name: String
-    email: String
-    password: String
+    userName: String!
+    name: String!
+    email: String!
+    password: String!
     friends: [ FriendInput ]
 }
 
@@ -27,4 +27,5 @@ type Query {
 type Mutation {
     createAccount(account: AccountInput!): StatusCode
     editAccount(_id: ID!, update: UpdateAny!): StatusCode
+    changePassword(_id: ID!, oldPassword: String!, newPassword: String!): StatusCode
 }

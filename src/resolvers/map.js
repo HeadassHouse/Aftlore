@@ -1,8 +1,11 @@
-const { ApolloError } = require('apollo-server');
+const { ApolloError, PubSub } = require('apollo-server');
+const mongoose = require('mongoose');
 const db = require('../utils/database');
 const { schema:Map } = require('../models/map');
 const { Where } = require('../utils/linqConstructor');
-const mongoose = require('mongoose');
+
+const pubsub = new PubSub();
+const MAP_UPDATED = 'MAP_UPDATED';
 
 module.exports = {
     Query: {
@@ -49,19 +52,14 @@ module.exports = {
                     }
                 });
         },
-        editMap: async ( _, { _id, update: { property, value} } ) => {
-            return db.UpdateDocument(mongoose.model('Map', Map), _id, { [property]: value } )
-                .then( ( ) => {
-                    return {
-                        code: 200,
-                        message: "Successfully edited Map",
-                    }
+        editMap: async ( _, { _id, update } ) => {
+            return db.UpdateDocument(mongoose.model('Map', Map), { _id: _id }, update )
+                .then( ( result ) => {
+                    pubsub.publish(MAP_UPDATED, { mapUpdated: result } );
+                    return result;
                 })
                 .catch( (error) => {
-                    return {
-                        code: 400,
-                        message: error
-                    }
+                    return new ApolloError("Error updating the map!")
                 });
         },
         deleteMap: async ( _, { _id, where } ) => {
@@ -105,8 +103,8 @@ module.exports = {
         }
     },
     Subscription: {
-        tileUpdated: () => {
-            
+        mapUpdated: { 
+            subscribe: () => pubsub.asyncIterator([MAP_UPDATED])
         }
     }
 }

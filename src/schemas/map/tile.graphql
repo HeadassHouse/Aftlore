@@ -1,3 +1,5 @@
+# import * from './entity.graphql'
+
 enum Terrain {
     IMPASSABLE
     PASSABLE
@@ -6,18 +8,20 @@ enum Terrain {
 }
 
 input TileInput {
-    x: Int
-    y: Int
-    height: Int
-    width: Int
-    type: Terrain
+    x: String!
+    y: String!
+    height: String!
+    width: String!
+    type: Terrain!
+    entities: [ EntityInput ]
 }
 
 type Tile {
     _id: ID
-    x: Int
-    y: Int
-    height: Int
-    width: Int
+    x: String
+    y: String
+    height: String
+    width: String
     type: Terrain
+    entities: [ Entity ]
 }
