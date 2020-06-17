@@ -1,0 +1,26 @@
+# import '../utils/utils.graphql'
+type Characteristic {
+    _id: ID!
+    type: String!
+    value: String!
+}
+
+input CharacteristicInput {
+    type: String!
+    value: String!
+}
+
+input CharacteristicEdit {
+    type: String
+    value: String
+}
+
+type Query {
+    getCharacteristic(_id: ID!): Characteristic
+}
+
+type Mutation {
+    createCharacteristic(characteristic: CharacteristicInput!): StatusCode
+    editCharacteristic(characteristic: CharacteristicEdit!): StatusCode
+    deleteCharacteristic(_id: ID!): StatusCode
+}

@@ -1,0 +1,36 @@
+# import '../utils/utils.graphql'
+# import './itemuseinfo.graphql'
+# import '../effect.graphql'
+type ItemDefinition{
+    _id: ID
+    name: String
+    stackable: Boolean
+    ammo: Int
+    onUse: ItemUseInfo
+    effectOnUse: [Effect]
+}
+input ItemDefinitionInput{
+    name: String!
+    stackable: Boolean!
+    ammo: Int!
+    onUse: ItemUseInfo!
+    effectOnUse: [Effect]!
+}
+input ItemDefinitionEdit{
+    name: String
+    stackable: Boolean
+    ammo: Int
+    onUse: ItemUseInfo
+    effectOnUse: [Effect]
+}
+
+type Query {
+    getItemDefinition(_id: ID!): ItemDefinition
+}
+
+type Mutation {
+    createItemDefinition(ruleset: ItemDefinitionInput!): StatusCode
+    editItemDefinition(ruleset: ItemDefinitionEdit!): StatusCode
+    deleteItemDefinition(_id: ID!): StatusCode
+}
+

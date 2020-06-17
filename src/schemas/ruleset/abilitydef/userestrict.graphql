@@ -1,0 +1,27 @@
+type UseRestriction{
+    _id: ID
+    coolDown: String
+    amount: Int
+    
+}
+input UseRestrictionInput{
+    coolDown: String!
+    amount: Int!
+    
+}
+input UseRestrictionEdit{
+    coolDown: String
+    amount: Int
+    
+}
+
+type Query {
+    getUseRestriction(_id: ID!): UseRestriction
+}
+
+type Mutation {
+    createUseRestriction(ruleset: UseRestrictionInput!): StatusCode
+    editUseRestriction(ruleset: UseRestrictionEdit!): StatusCode
+    deleteUseRestriction(_id: ID!): StatusCode
+}
+

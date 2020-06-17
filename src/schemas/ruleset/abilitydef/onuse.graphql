@@ -1,0 +1,29 @@
+type AbilityOnUse{
+    _id: ID
+    usableOnSelf: Boolean
+    usableOnCharacters: Boolean
+    quantityOfTargets: Int
+    
+}
+input AbilityOnUseInput{
+    usableOnSelf: Boolean!
+    usableOnCharacters: Boolean!
+    quantityOfTargets: Int!
+    
+}
+input AbilityOnUseEdit{
+    usableOnSelf: Boolean
+    usableOnCharacters: Boolean
+    quantityOfTargets: Int
+    
+}
+
+type Query {
+    getAbilityOnUse(_id: ID!): AbilityOnUse
+}
+
+type Mutation {
+    createAbilityOnUse(ruleset: AbilityOnUseInput!): StatusCode
+    editAbilityOnUse(ruleset: AbilityOnUseEdit!): StatusCode
+    deleteAbilityOnUse(_id: ID!): StatusCode
+}

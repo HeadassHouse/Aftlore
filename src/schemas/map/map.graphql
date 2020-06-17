@@ -1,7 +1,6 @@
 # import * from './tile.graphql'
-# import * from '../where/where.graphql'
 # import * from '../statusCode.graphql'
-# import * from '../updateAny/updateAny.graphql'
+# import '../utils/utils.graphql'
 
 input MapInput {
     imageLink: String
