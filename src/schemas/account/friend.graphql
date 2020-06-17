@@ -1,7 +1,0 @@
-input FriendInput {
-    _id: ID
-}
-
-type Friend {
-    _id: ID
-}

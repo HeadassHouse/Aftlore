@@ -1,8 +1,8 @@
 const { model, Schema, ObjectId } = require('mongoose');
 
 const MapSchema = new Schema({
-    imageLink: { type: String },
-    name: { type: String },
+    imageLink: String,
+    name: String,
     tiles: { 
         type: [ 
             {

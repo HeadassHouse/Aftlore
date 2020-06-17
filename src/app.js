@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 const { ApolloServer } = require('apollo-server-express');
 const { importSchema } = require('graphql-import');
-const { resolver } = require('./resolvers/resolver')
+const resolver = require('./resolvers/resolver')
 const campaign = require('../jsonTemplates/campaign')
 
 const create = () => {

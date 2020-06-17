@@ -1,14 +1,11 @@
-# import * from './friend.graphql'
 # import '../utils/utils.graphql'
-
-
 
 input AccountInput {
     userName: String!
     name: String!
     email: String!
     password: String!
-    friends: [ FriendInput ]
+    friends: [ ID ]
 }
 
 type Account {
@@ -16,8 +13,7 @@ type Account {
     userName: String
     name: String
     email: String
-    password: String
-    friends: [ Friend ]
+    friends: [ ID ]
 }
 
 type Query {

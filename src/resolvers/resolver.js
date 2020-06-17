@@ -1,24 +1,8 @@
-const { Query: AccountQuery, Mutation: AccountMutation } = require('./account');
-const { Query: MapQuery, Mutation: MapMutation, Subscription: MapSubscription } = require('./map');
+const account = require('./account');
+const map = require('./map');
+const { merge } = require('lodash');
 
-module.exports = {
-    resolver: {
-        Query:{
-            login: AccountQuery.login,
-            getMap: MapQuery.getMap,
-        }, 
-        Mutation: {
-            createAccount: AccountMutation.createAccount,
-            createMap: MapMutation.createMap,
-            editAccount: AccountMutation.editAccount,
-            changePassword: AccountMutation.changePassword,
-            editMap: MapMutation.editMap,
-            deleteMap: MapMutation.deleteMap,
-        },
-        Subscription: {
-            mapUpdated: MapSubscription.mapUpdated
-        }
-    }
-}
-
-
+module.exports = merge(
+    account,
+    map
+);
