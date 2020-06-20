@@ -1,8 +1,7 @@
 module.exports = () => {
-    // Proccess all command line args
     const args = {
         verbose: false,
-        env: 'dev' // The default environment is the development env
+        env: 'dev'
     }
 
     process.argv.forEach( arg => {
