@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "jest"
+    "test": "mocha --recursive"
   },
   "author": "Headass House TM",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "express": "^4.17.1",
     "graphql": "^14.6.0",
     "graphql-import": "^1.0.2",
-    "jest": "^26.0.1",
+    "mocha": "^8.0.1",
     "mongoose": "^5.9.18"
   }
 }
