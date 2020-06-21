@@ -1,36 +1,27 @@
-# import '../utils/utils.graphql'
+# import '../../utils/utils.graphql'
 type ItemUseInfo{
     _id: ID
-    useableOnSelf: Boolean
+    usableOnSelf: Boolean
     usableOnCharacters: Boolean
     subtractAmmoOnUse: Boolean
-    subtractQuantity: Int
+    subtractionQuantity: Int
     consumeOnUse: Boolean
     quantityOfTargets: Int
 }
 input ItemUseInfoInput{
-    useableOnSelf: Boolean!
+    usableOnSelf: Boolean!
     usableOnCharacters: Boolean!
     subtractAmmoOnUse: Boolean!
-    subtractQuantity: Int!
+    subtractionQuantity: Int!
     consumeOnUse: Boolean!
     quantityOfTargets: Int!
 }
 input ItemUseInfoEdit{
-    useableOnSelf: Boolean
+    usableOnSelf: Boolean
     usableOnCharacters: Boolean
     subtractAmmoOnUse: Boolean
-    subtractQuantity: Int
+    subtractionQuantity: Int
     consumeOnUse: Boolean
     quantityOfTargets: Int
 }
 
-type Query {
-    getItemUseInfo(_id: ID!): ItemUseInfo
-}
-
-type Mutation {
-    createItemUseInfo(ruleset: ItemUseInfoInput!): StatusCode
-    editItemUseInfo(ruleset: ItemUseInfoEdit!): StatusCode
-    deleteItemUseInfo(_id: ID!): StatusCode
-}

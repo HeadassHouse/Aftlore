@@ -1,4 +1,4 @@
-# import '../utils/utils.graphql'
+# import '../../utils/utils.graphql'
 # import './userestrict.graphql'
 # import './onuse.graphql'
 # import '../effect.graphql'
@@ -8,34 +8,24 @@ type AbilityDefinition{
     stackable: Boolean
     useRestriction: UseRestriction
     onUse: AbilityOnUse
-    effectOnUse: [AbilityEffect]
+    effectOnUse: [Effect]
     
 }
 input AbilityDefinitionInput{
     name: String!
     stackable: Boolean!
-    useRestriction: UseRestriction!
-    onUse: AbilityOnUse!
-    effectOnUse: [AbilityEffect]!
+    useRestriction: UseRestrictionInput!
+    onUse: AbilityOnUseInput!
+    effectOnUse: [EffectInput]!
     
 }
 
 input AbilityDefinitionEdit{
     name: String
     stackable: Boolean
-    useRestriction: UseRestriction
-    onUse: AbilityOnUse
-    effectOnUse: [AbilityEffect]
+    useRestriction: UseRestrictionInput
+    onUse: AbilityOnUseInput
+    effectOnUse: [EffectInput]
     
-}
-
-type Query {
-    getAbilityDefinition(_id: ID!): AbilityDefinition
-}
-
-type Mutation {
-    createAbilityDefinition(ruleset: AbilityDefinitionInput!): StatusCode
-    editAbilityDefinition(ruleset: AbilityDefinitionEdit!): StatusCode
-    deleteAbilityDefinition(_id: ID!): StatusCode
 }
 

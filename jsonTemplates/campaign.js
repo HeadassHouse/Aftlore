@@ -1,15 +1,15 @@
-module.exports = campaign = {
+
+module.exports = campaign =
+{
     "campaign": {
-        "_id": "campaign id",
         "name": "Corey's Viatlergy Campaign",
-        "dm": "_id of Corey",
+        "dm": "5ee98d2c93ea7b56987dbbc4",
         "description": "A campaign",
         "characters": [
-            "idofoneperson",
-            "idofanotherperson"
+            "5ee98d2c93ea7b56987dbbc4",
+            "5ee98d2c93ea7b56987dbbc4"
         ],
         "ruleSet": {
-            "_id": "_id",
             "name": "DND 5E",
             "shared": {
                 "stats": [
@@ -18,7 +18,7 @@ module.exports = campaign = {
                         "defaultValue": 10,
                         "minValue": 0,
                         "maxValue": 400,
-                        "rollModifer": 0,
+                        "rollModifier": 0,
                         "associatedSkills": []
                     },
                     {
@@ -26,7 +26,7 @@ module.exports = campaign = {
                         "defaultValue": 10,
                         "minValue": 1,
                         "maxValue": 20,
-                        "rollModifer": 0,
+                        "rollModifier": 0,
                         "associatedSkills": [
                             "acrobatics",
                             "stealth"
@@ -37,7 +37,7 @@ module.exports = campaign = {
                         "defaultValue": 10,
                         "minValue": 1,
                         "maxValue": 20,
-                        "rollModifer": -1,
+                        "rollModifier": -1,
                         "associatedSkills": []
                     }
                 ],
@@ -67,7 +67,7 @@ module.exports = campaign = {
                     {
                         "type": "level",
                         "values": [
-                            "NULL DENOTES THAT CAN BE ANYTHING"
+
                         ]
                     },
                     {
@@ -134,8 +134,8 @@ module.exports = campaign = {
                     },
                     {
                         "type": "subclass",
-                        "value": [
-                            "YOU CAN DO ANYTHING YOU WANT"
+                        "values": [
+
                         ]
                     }
                 ],
@@ -235,7 +235,7 @@ module.exports = campaign = {
                         "defaultValue": 10,
                         "minValue": 0,
                         "maxValue": 400,
-                        "rollModifer": 0,
+                        "rollModifier": 0,
                         "associatedSkills": []
                     },
                     {
@@ -243,7 +243,7 @@ module.exports = campaign = {
                         "defaultValue": 10,
                         "minValue": 1,
                         "maxValue": 20,
-                        "rollModifer": 0,
+                        "rollModifier": 0,
                         "associatedSkills": [
                             "acrobatics",
                             "stealth"
@@ -254,7 +254,7 @@ module.exports = campaign = {
                         "defaultValue": 10,
                         "minValue": 1,
                         "maxValue": 20,
-                        "rollModifer": -1,
+                        "rollModifier": -1,
                         "associatedSkills": []
                     }
                 ],
@@ -284,7 +284,6 @@ module.exports = campaign = {
                     {
                         "type": "level",
                         "values": [
-                            "NULL DENOTES THAT CAN BE ANYTHING"
                         ]
                     },
                     {
@@ -351,8 +350,7 @@ module.exports = campaign = {
                     },
                     {
                         "type": "subclass",
-                        "value": [
-                            "YOU CAN DO ANYTHING YOU WANT"
+                        "values": [
                         ]
                     }
                 ],
@@ -452,7 +450,7 @@ module.exports = campaign = {
                         "defaultValue": 10,
                         "minValue": 0,
                         "maxValue": 400,
-                        "rollModifer": 0,
+                        "rollModifier": 0,
                         "associatedSkills": []
                     },
                     {
@@ -460,7 +458,7 @@ module.exports = campaign = {
                         "defaultValue": 10,
                         "minValue": 1,
                         "maxValue": 20,
-                        "rollModifer": 0,
+                        "rollModifier": 0,
                         "associatedSkills": [
                             "acrobatics",
                             "stealth"
@@ -471,7 +469,7 @@ module.exports = campaign = {
                         "defaultValue": 10,
                         "minValue": 1,
                         "maxValue": 20,
-                        "rollModifer": -1,
+                        "rollModifier": -1,
                         "associatedSkills": []
                     }
                 ],
@@ -501,7 +499,7 @@ module.exports = campaign = {
                     {
                         "type": "level",
                         "values": [
-                            "NULL DENOTES THAT CAN BE ANYTHING"
+
                         ]
                     },
                     {
@@ -568,8 +566,8 @@ module.exports = campaign = {
                     },
                     {
                         "type": "subclass",
-                        "value": [
-                            "YOU CAN DO ANYTHING YOU WANT"
+                        "values": [
+
                         ]
                     }
                 ],
@@ -664,8 +662,8 @@ module.exports = campaign = {
             }
         },
         "maps": [
-            "_id of map",
-            "_id of another map"
+            "5ee98d2c93ea7b56987dbbc4",
+            "5ee98d2c93ea7b56987dbbc4"
         ]
     }
 }

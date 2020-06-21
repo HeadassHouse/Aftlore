@@ -1,3 +1,4 @@
+# import '../utils/utils.graphql'
 type Effect{
     _id: ID
     stat: String
@@ -18,12 +19,3 @@ input EffectEdit{
     dice: String
 }
 
-type Query {
-    getEffect(_id: ID!): Effect
-}
-
-type Mutation {
-    createEffect(ruleset: EffectInput!): StatusCode
-    editEffect(ruleset: EffectEdit!): StatusCode
-    deleteEffect(_id: ID!): StatusCode
-}

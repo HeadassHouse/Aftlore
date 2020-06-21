@@ -1,11 +1,12 @@
 const { model, Schema, ObjectId } = require('mongoose');
+const { schema:RuleSetSchema } = require('./ruleset');
 
 const CampaignSchema = new Schema({
     name: String,
     dm: ObjectId,
     description: String,
     characters: [ObjectId],
-    rule: ObjectId,
+    ruleSet: RuleSetSchema,
     maps: [ObjectId]
 });
 

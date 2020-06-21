@@ -10,16 +10,16 @@ type Ruleset {
 
 input RulesetInput {
     name: String!
-    shared: CharacterDefinition!
-    npc: CharacterDefinition!
-    player: CharacterDefinition!
+    shared: CharacterDefinitionInput!
+    npc: CharacterDefinitionInput!
+    player: CharacterDefinitionInput!
 }
 
 input RulesetEdit {
     name: String
-    shared: CharacterDefinition
-    npc: CharacterDefinition
-    player: CharacterDefinition
+    shared: CharacterDefinitionInput
+    npc: CharacterDefinitionInput
+    player: CharacterDefinitionInput
 }
 
 type Query {

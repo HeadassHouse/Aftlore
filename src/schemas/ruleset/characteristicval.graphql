@@ -8,20 +8,11 @@ type CharacteristicValue{
 }
 input CharacteristicValueInput{
     name: String!
-    modifiers: [CharacteristicMod]!
+    modifiers: [CharacteristicModInput]!
     
 }
 input CharacteristicValueEdit{
     name: String
-    modifiers: [CharacteristicMod]
+    modifiers: [CharacteristicModInput]
 }
 
-type Query {
-    getCharacteristicValue(_id: ID!): CharacteristicValue
-}
-
-type Mutation {
-    createCharacteristicValue(ruleset: CharacteristicValueInput!): StatusCode
-    editCharacteristicValue(ruleset: CharacteristicValueEdit!): StatusCode
-    deleteCharacteristicValue(_id: ID!): StatusCode
-}

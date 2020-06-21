@@ -10,7 +10,7 @@
                         "defaultValue": 10,
                         "minValue": 0,
                         "maxValue": 400,
-                        "rollModifer": 0,
+                        "rollModifier": 0,
                         "associatedSkills": [ ]
                     },
                     {
@@ -18,7 +18,7 @@
                         "defaultValue": 10,
                         "minValue": 1,
                         "maxValue": 20,
-                        "rollModifer": 0,
+                        "rollModifier": 0,
                         "associatedSkills": [
                             "acrobatics",
                             "stealth"
@@ -29,7 +29,7 @@
                         "defaultValue": 10,
                         "minValue": 1,
                         "maxValue": 20,
-                        "rollModifer": -1,
+                        "rollModifier": -1,
                         "associatedSkills": [ ]
                     }
                 ],
@@ -223,7 +223,7 @@
                         "defaultValue": 10,
                         "minValue": 0,
                         "maxValue": 400,
-                        "rollModifer": 0,
+                        "rollModifier": 0,
                         "associatedSkills": [ ]
                     },
                     {
@@ -231,7 +231,7 @@
                         "defaultValue": 10,
                         "minValue": 1,
                         "maxValue": 20,
-                        "rollModifer": 0,
+                        "rollModifier": 0,
                         "associatedSkills": [
                             "acrobatics",
                             "stealth"
@@ -242,7 +242,7 @@
                         "defaultValue": 10,
                         "minValue": 1,
                         "maxValue": 20,
-                        "rollModifer": -1,
+                        "rollModifier": -1,
                         "associatedSkills": [ ]
                     }
                 ],
@@ -436,7 +436,7 @@
                         "defaultValue": 10,
                         "minValue": 0,
                         "maxValue": 400,
-                        "rollModifer": 0,
+                        "rollModifier": 0,
                         "associatedSkills": [ ]
                     },
                     {
@@ -444,7 +444,7 @@
                         "defaultValue": 10,
                         "minValue": 1,
                         "maxValue": 20,
-                        "rollModifer": 0,
+                        "rollModifier": 0,
                         "associatedSkills": [
                             "acrobatics",
                             "stealth"
@@ -455,7 +455,7 @@
                         "defaultValue": 10,
                         "minValue": 1,
                         "maxValue": 20,
-                        "rollModifer": -1,
+                        "rollModifier": -1,
                         "associatedSkills": [ ]
                     }
                 ],

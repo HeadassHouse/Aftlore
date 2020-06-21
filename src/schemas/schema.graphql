@@ -1,2 +1,3 @@
 # import Query.*, Mutation.*, Subscription.* from './map/map.graphql'
 # import Query.*, Mutation.* from './account/account.graphql'
+# import Query.*, Mutation.* from './campaign/campaign.graphql'

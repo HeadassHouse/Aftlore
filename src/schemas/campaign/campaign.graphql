@@ -1,7 +1,6 @@
 # import '../utils/utils.graphql'
 # import './character.graphql'
-# import './ruleset.graphql'
-# import '../map.graphql'
+# import '../map/map.graphql'
 # import '../ruleset/ruleset.graphql'
 
 type Campaign {
@@ -10,19 +9,18 @@ type Campaign {
     dm: ID
     description: String
     characters: [Character]
-    rule: Ruleset
-    maps: [Map]
+    ruleSet: Ruleset
+    maps: [ID]
     
 }
 
 input CampaignInput {
-    _id: ID!
     name: String!
     dm: ID!
     description: String!
-    characters: [Character]!
-    rule: Ruleset!
-    maps: [Map]!
+    characters: [ID]!
+    ruleSet: RulesetInput!
+    maps: [ID]!
     
 }
 
@@ -30,14 +28,14 @@ input CampaignEdit {
     name: String
     dm: ID
     description: String
-    characters: [Character]
-    rule: Ruleset
-    maps: [Map]
+    characters: [ID]
+    ruleSet: RulesetInput
+    maps: [ID]
     
 }
 
 type Query {
-    getCampaign(_id: ID!): Campaign
+    getCampaign(_id: ID!): [Campaign]
 }
 
 type Mutation {

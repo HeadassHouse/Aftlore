@@ -8,28 +8,28 @@ type Character {
     name: String!
     stats: [Stat!]!
     characteristics:[Characteristic!]!
-    inventory:[items]!
-    abilities:[ability]!
-    notes:[String]
-    
-}
-
-input CharacterInput {
-    name: String!
-    stats: [Stat!]!
-    characteristics:[Characteristic!]!
     inventory:[Item]!
     abilities:[Ability]!
     notes:[String]
     
 }
 
+input CharacterInput {
+    name: String!
+    stats: [StatInput!]!
+    characteristics:[CharacteristicInput!]!
+    inventory:[ItemInput]!
+    abilities:[AbilityInput]!
+    notes:[String]
+    
+}
+
 input CharacterEdit {
     name: String
-    stats: [Stat!]
-    characteristics:[Characteristic]
-    inventory:[Item]
-    abilities:[Ability]
+    stats: [StatInput!]
+    characteristics:[CharacteristicInput]
+    inventory:[ItemInput]
+    abilities:[AbilityInput]
     notes:[String]
     
 }

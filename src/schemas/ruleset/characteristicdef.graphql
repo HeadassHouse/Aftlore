@@ -7,19 +7,10 @@ type CharacteristicDefinition{
 }
 input CharacteristicDefinitionInput{
     type: String!
-    values: [CharacteristicValue]!
+    values: [CharacteristicValueInput]
 }
 input CharacteristicDefinitionEdit{
     _id: ID
     type: String
-    values: [CharacteristicValue]
-}
-type Query {
-    getCharacteristicDefinition(_id: ID!): CharacteristicDefinition
-}
-
-type Mutation {
-    createCharacteristicDefinition(ruleset: CharacteristicDefinitionInput!): StatusCode
-    editCharacteristicDefinition(ruleset: CharacteristicDefinitionEdit!): StatusCode
-    deleteCharacteristicDefinition(_id: ID!): StatusCode
+    values: [CharacteristicValueInput]
 }

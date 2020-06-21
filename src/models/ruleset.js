@@ -2,28 +2,27 @@ const { model, Schema, ObjectId } = require('mongoose');
 const { stripIgnoredCharacters } = require('graphql');
 
 const CharacterDefinition = new Schema({
-    name: String,
-    stats: {
+    stats: [{
         name:String,
         defaultValue: Number,
         minValue:Number,
         rollModifier:Number,
         associatedSkills:[String]
-    },
-    characteristics:{
-        type:String,
+    }],
+    characteristics:[{
+        type:{type:String},
         values:[
             {
                 name: String,
                 modifiers: [
                     {
-                        type: String,
+                        type: {type:String},
                         modifier: Number
                     }
                 ] 
             },
         ]
-    },
+    }],
     items: [
         {
             name: String,
@@ -81,6 +80,6 @@ const RuleSetSchema = new Schema({
 });
 
 module.exports = { 
-    model: model('Campaign', RuleSetSchema), 
+    model: model('RuleSet', RuleSetSchema), 
     schema: RuleSetSchema 
 }

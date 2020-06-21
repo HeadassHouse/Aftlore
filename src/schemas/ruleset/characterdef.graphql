@@ -13,28 +13,18 @@ type CharacterDefinition{
 }
 
 input CharacterDefinitionInput{
-    stats: [StatDefinition]!
-    characteristics: [CharacteristicDefinition]!
-    items: [ItemDefinition]!
-    abilities: [AbilityDefinition]!
+    stats: [StatDefinitionInput]
+    characteristics: [CharacteristicDefinitionInput]
+    items: [ItemDefinitionInput]
+    abilities: [AbilityDefinitionInput]
     
 }
 
 input CharacterDefinitionEdit{
-    stats: [StatDefinition]
-    characteristics: [CharacteristicDefinition]
-    items: [ItemDefinition]
-    abilities: [AbilityDefinition]
+    stats: [StatDefinitionInput]
+    characteristics: [CharacteristicDefinitionInput]
+    items: [ItemDefinitionInput]
+    abilities: [AbilityDefinitionInput]
     
-}
-
-type Query {
-    getCharacterDefinition(_id: ID!): CharacterDefinition
-}
-
-type Mutation {
-    createCharacterDefinition(ruleset: CharacterDefinitionInput!): StatusCode
-    editCharacterDefinition(ruleset: CharacterDefinitionEdit!): StatusCode
-    deleteCharacterDefinition(_id: ID!): StatusCode
 }
 

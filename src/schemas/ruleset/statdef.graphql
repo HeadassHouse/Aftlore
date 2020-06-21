@@ -9,14 +9,20 @@ type StatDefinition{
     associatedSkills: [String]
 }
 
-
-type Query {
-    getStatDefinition(_id: ID!): StatDefinition
+input StatDefinitionInput{
+    name: String!
+    defaultValue: Int!
+    minValue: Int!
+    maxValue: Int!
+    rollModifier: Int!
+    associatedSkills: [String]!
 }
 
-type Mutation {
-    createStatDefinition(ruleset: StatDefinitionInput!): StatusCode
-    editStatDefinition(ruleset: StatDefinitionEdit!): StatusCode
-    deleteStatDefinition(_id: ID!): StatusCode
+input StatDefinitionEdit{
+    name: String
+    defaultValue: Int
+    minValue: Int
+    maxValue: Int
+    rollModifier: Int
+    associatedSkills: [String]
 }
-

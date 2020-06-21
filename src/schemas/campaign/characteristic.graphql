@@ -14,13 +14,3 @@ input CharacteristicEdit {
     type: String
     value: String
 }
-
-type Query {
-    getCharacteristic(_id: ID!): Characteristic
-}
-
-type Mutation {
-    createCharacteristic(characteristic: CharacteristicInput!): StatusCode
-    editCharacteristic(characteristic: CharacteristicEdit!): StatusCode
-    deleteCharacteristic(_id: ID!): StatusCode
-}

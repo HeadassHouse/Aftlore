@@ -15,12 +15,3 @@ input CharacteristicModEdit{
     modifier: Int
     
 }
-type Query {
-    getCharacteristicMod(_id: ID!): CharacteristicMod
-}
-
-type Mutation {
-    createCharacteristicMod(ruleset: CharacteristicModInput!): StatusCode
-    editCharacteristicMod(ruleset: CharacteristicModEdit!): StatusCode
-    deleteCharacteristicMod(_id: ID!): StatusCode
-}
