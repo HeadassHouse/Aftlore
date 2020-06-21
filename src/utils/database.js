@@ -8,19 +8,19 @@ module.exports = {
         const connectionString = process.env.MONGO_CONNECTION_STRING || 'localhost:27017/data';
         const uri = `mongodb://${username}:${password}@${connectionString}`
 
-        mongoose
+        return mongoose
             .connect(uri, {
                 useNewUrlParser: true,
                 dbName: 'loremaster',
-                useUnifiedTopology: true 
+                useUnifiedTopology: true,
+                useFindAndModify: false 
             })
             .then( () => `Successfully connected to db`)
             .catch( (error) => `Could not connect to db. Error: ${error}`); 
     },
 
     CreateDocument: async (Model, payload) => {
-        return new Model(payload).save()
-            .catch( (error) => { throw new ApolloError(error) } );
+        return new Model(payload).save();
     },
 
     DeleteDocument: async (Model, payload) => {
