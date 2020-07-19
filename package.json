@@ -1,11 +1,12 @@
 {
   "name": "loremaster.backend",
   "version": "0.1.0",
-  "description": "A NodeJs + GraphQL API for connecting to a MySQL db for the Project Loremaster DND Table TM",
+  "description": "A NodeJs + GraphQL API for connecting to a MongoDB for the Project Loremaster DND Table TM",
+  "repository": "https://github.com/HeadassHouse/loremaster-backend",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "mocha --recursive"
+    "test": "jest"
   },
   "author": "Headass House TM",
   "license": "MIT",
@@ -16,7 +17,7 @@
     "express": "^4.17.1",
     "graphql": "^14.6.0",
     "graphql-import": "^1.0.2",
-    "mocha": "^8.0.1",
+    "jest": "^26.1.0",
     "mongoose": "^5.9.18"
   }
 }

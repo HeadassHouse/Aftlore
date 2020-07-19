@@ -23,22 +23,22 @@ const getArgs = require('./proccessCommandLineArgs')
 const Or = ( { operation, value, property } ) => { 
     try {
         switch(operation) {
-            case "EQUALS": // EQUALS operation
+            case 'EQUALS':
                 return { [property]: value };
-            case "CONTAINS": // CONTAINS operation
+            case 'CONTAINS':
                 return { [property]: `/${value}/` };
-            case "LT": // LT operation
+            case 'LT':
                 return { [property]: { $lt: value } };                    
-            case "LTE": // LTE operation
+            case 'LTE':
                 return { [property]: { $lte: value } };                                        
-            case "GT": // GT operation
+            case 'GT':
                 return { [property]: { $gt: value } };                                                    
-            case "GTE": // GTE operation
+            case 'GTE':
                 return { [property]: { $gte: value } };   
-            case "NE": // NE operation
+            case 'NE':
                 return { [property]: { $ne: value } }    
             default:
-                throw `NOT_AN_OP`;                          
+                throw 'NOT_AN_OP';                          
         }
     }
     catch(err) {
@@ -67,7 +67,7 @@ module.exports = {
                 if (and){
                     and.$and.push(And(AND) );
                 } else {
-                    and = { ["$and"]: [ And(AND) ] };
+                    and = { ['$and']: [ And(AND) ] };
                 }
             });
         }
