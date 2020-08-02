@@ -12,5 +12,5 @@ module.exports = {
   testMatch: ['**/?(*.)test.js'],
   testEnvironment: 'node',
   moduleDirectories: ['node_modules'],
-  coveragePathIgnorePatterns: ['index.js'],
+  coveragePathIgnorePatterns: ['index.js', 'app.js', 'schemas', 'resolver.js'],
 };

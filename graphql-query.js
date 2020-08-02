@@ -1,5 +1,5 @@
 const query = {
-    "query": `query { 
+  query: `query { 
         getCampaign(_id:""){
           _id
           name
@@ -221,5 +221,5 @@ const query = {
         }
         maps
     }
-}`
-}
+}`,
+};

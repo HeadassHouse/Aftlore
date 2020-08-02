@@ -1,89 +1,50 @@
-const { CreateDocument, GetDocument, UpdateDocument } = require('../utils/database');
-const { ApolloError } = require('apollo-server');
-const { schema:Account } = require('../models/account');
-const bcrypt = require('bcrypt');
-const mongoose = require('mongoose');
+const hash = require('./utils/hash');
+const { model: AccountModel } = require('../models/account');
+const { CreateDocument, GetDocument, UpdateDocument } = require('./utils/database');
 
 module.exports = {
-    Query: {
-        login: async ( _, { userName, password } ) => {
-            return GetDocument( mongoose.model('Account', Account), { userName: userName } )
-                .then( async (result) => {
-                    if (!result)
-                        return new Error("userName not found");
-                    const same = await bcrypt.compare(password, result.password);
-                    if (same) {
-                        return result;
-                    }
-                    else {
-                        return new ApolloError("Incorrect login information");
-                    }
-                })
-                .catch( (error) => {
-                    return {
-                        code: 400,
-                        message: error
-                    }
-                });            
-        }
-    },
-    Mutation: {
-        createAccount: async ( _, { account } ) => {
-            account.password = await bcrypt.hash(String(account.password),10);
-            return CreateDocument(mongoose.model('Account', Account), account)
-                .then( () => { 
-                    return {
-                        code: 200,
-                        message: "Successfully inserted Account"
-                    }
-                })
-                .catch( (error) => {
-                    return {
-                        code: 400,
-                        message: error
-                    }
-                });
-        },
-        editAccount: async ( _, { _id, update: { property, value} } ) => {
-            if (property == "password")
-                return new ApolloError("Must use changePassword for updating password");
-            
-            return UpdateDocument(mongoose.model('Account', Account), _id, { [property]: value} )
-                .then( ( ) => { 
-                    return {
-                        code: 200,
-                        message: "Successfully edited Account"
-                    }
-                })
-                .catch( (error) => {
-                    return {
-                        code: 400,
-                        message: error
-                    }
-                });
-        },
-        changePassword: async ( _, { _id, oldPassword, newPassword } ) => {
-            const account = await GetDocument( mongoose.model('Account', Account), { _id: _id } );
+  Query: {
+    login: async (_, { userName, password }) => {
+      const result = await GetDocument(AccountModel, { userName });
 
-            if ( account && await bcrypt.compare(oldPassword, account.password) ){
-                newPassword = await bcrypt.hash(String(newPassword), 10);
-                return UpdateDocument(mongoose.model('Account', Account), { _id: _id } , { password: newPassword} )
-                    .then( ( ) => { 
-                        return {
-                            code: 200,
-                            message: "Successfully changed password"
-                        }
-                    })
-                    .catch( (error) => {
-                        return {
-                            code: 400,
-                            message: error
-                        }
-                    });
-            }
-            else {
-                return new ApolloError("Old password is not correct");
-            }
-        }
-    }
-}
+      if (!result) throw new Error('USERNAME_NOT_FOUND');
+
+      if (await hash.compare(password, result.password)) return result;
+
+      throw new Error('INCORRECT_PASSWORD');
+    },
+  },
+  Mutation: {
+    createAccount: async (_, { account }) => {
+      const hashedPassword = await hash.encrypt(String(account.password));
+      const createdAccount = await CreateDocument(AccountModel, ...(account, { hashedPassword }));
+
+      if (createdAccount) return createdAccount;
+
+      throw new Error('ACCOUNT_CREATION_FAILED');
+    },
+    editAccount: async (_, { _id, update: { property, value } }) => {
+      if (property === 'password') throw new Error('CANNOT_EDIT_PASSWORD');
+
+      const account = await UpdateDocument(AccountModel, _id, { [property]: value });
+
+      if (account) return account;
+
+      throw new Error('EDIT_ACCOUNT_ERROR');
+    },
+    changePassword: async (_, { _id, oldPassword, newPassword }) => {
+      const account = await GetDocument(AccountModel, { _id });
+
+      if (account && await hash.compare(oldPassword, account.password)) {
+        const password = await hash.encrypt(String(newPassword));
+        const updatedAccount = await UpdateDocument(AccountModel, { _id }, { password });
+
+        if (updatedAccount) return updatedAccount;
+
+        throw new Error('CHANGE_PASSWORD_ERROR');
+      }
+
+      throw new Error('INCORRECT_PASSWORD');
+    },
+  },
+};
