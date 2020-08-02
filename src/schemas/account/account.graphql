@@ -21,7 +21,7 @@ type Query {
 }
 
 type Mutation {
-    createAccount(account: AccountInput!): StatusCode
-    editAccount(_id: ID!, update: UpdateAny!): StatusCode
-    changePassword(_id: ID!, oldPassword: String!, newPassword: String!): StatusCode
+    createAccount(account: AccountInput!): Account
+    editAccount(_id: ID!, update: UpdateAny!): Account
+    changePassword(_id: ID!, oldPassword: String!, newPassword: String!): Account
 }

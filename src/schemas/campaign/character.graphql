@@ -39,7 +39,7 @@ type Query {
 }
 
 type Mutation {
-    createCharacter(character: CharacterInput!): StatusCode
-    editCharacter(character: CharacterEdit!): StatusCode
-    deleteCharacter(_id: ID!): StatusCode
+    createCharacter(character: CharacterInput!): Character
+    editCharacter(character: CharacterEdit!): Character
+    deleteCharacter(_id: ID!): Character
 }

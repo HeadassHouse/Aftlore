@@ -1,4 +1,0 @@
-type StatusCode {
-    code: String
-    message: String
-}

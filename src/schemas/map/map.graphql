@@ -26,9 +26,9 @@ type Query {
 }
 
 type Mutation {
-    createMap(map: MapInput!): StatusCode
+    createMap(map: MapInput!): Map
     editMap(_id: ID!, update: MapUpdate!): Map
-    deleteMap(_id: ID!): StatusCode
+    deleteMap(_id: ID!): Map
 }
 
 type Subscription {

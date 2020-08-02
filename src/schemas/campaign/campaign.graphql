@@ -39,7 +39,7 @@ type Query {
 }
 
 type Mutation {
-    createCampaign(campaign: CampaignInput!): StatusCode
-    editCampaign(campaign: CampaignEdit!): StatusCode
-    deleteCampaign(_id: ID!): StatusCode
+    createCampaign(campaign: CampaignInput!): Campaign
+    editCampaign(campaign: CampaignEdit!): Campaign
+    deleteCampaign(_id: ID!): Campaign
 }

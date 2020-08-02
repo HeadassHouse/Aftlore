@@ -1,22 +1,39 @@
 {
   "name": "loremaster.backend",
   "version": "0.1.0",
-  "description": "A NodeJs + GraphQL API for connecting to a MySQL db for the Project Loremaster DND Table TM",
+  "description": "A NodeJs + GraphQL API for connecting to a MongoDB for the Project Loremaster DND Table TM",
+  "repository": "https://github.com/HeadassHouse/loremaster-backend",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "mocha --recursive"
+    "test": "jest"
   },
   "author": "Headass House TM",
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.14.3",
+    "apollo-server-express": "^2.16.1",
     "bcrypt": "^3.0.8",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "graphql": "^14.6.0",
     "graphql-import": "^1.0.2",
-    "mocha": "^8.0.1",
+    "jest": "^26.1.0",
+    "lodash": "^4.17.19",
     "mongoose": "^5.9.18"
+  },
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "lint-staged": "^10.2.11"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": ["./node_modules/.bin/eslint — fix", "git add"]
   }
 }

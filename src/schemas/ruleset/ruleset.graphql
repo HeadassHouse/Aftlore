@@ -27,7 +27,7 @@ type Query {
 }
 
 type Mutation {
-    createRuleset(ruleset: RulesetInput!): StatusCode
-    editRuleset(ruleset: RulesetEdit!): StatusCode
-    deleteRuleset(_id: ID!): StatusCode
+    createRuleset(ruleset: RulesetInput!): Ruleset
+    editRuleset(ruleset: RulesetEdit!): Ruleset
+    deleteRuleset(_id: ID!): Ruleset
 }
