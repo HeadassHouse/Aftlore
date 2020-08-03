@@ -71,8 +71,8 @@ module.exports = {
       }
 
       throw new ApolloError(
-        'The password provided is incorrect',
-        'INCORRECT_PASSWORD',
+        'The password provided is incorrect or account not found',
+        'ACCOUNT_INFO_ERROR',
       );
     },
   },
