@@ -1,23 +1,26 @@
 const express = require('express');
 const http = require('http');
+const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
 const { importSchema } = require('graphql-import');
 const resolver = require('./resolvers/resolver');
 const campaign = require('../jsonTemplates/campaign');
 
-const create = () => {
+const createApp = () => {
+  const app = express();
+
+  app.use(cors());
+  app.use('/campaign', (_, res) => {
+    res.send(campaign);
+  });
+
   const server = new ApolloServer({
     typeDefs: importSchema('src/schemas/schema.graphql'),
     resolvers: resolver,
     subscriptions: {
-      onConnect: (connectionParams, webSocket) => 'connected',
+      onConnect: () => 'connected',
     },
     debug: false,
-  });
-
-  const app = express();
-  app.use('/campaign', (_, res) => {
-    res.send(campaign);
   });
 
   server.applyMiddleware({ app });
@@ -28,4 +31,4 @@ const create = () => {
   return httpServer;
 };
 
-module.exports = create;
+module.exports = createApp;

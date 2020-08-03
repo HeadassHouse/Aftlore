@@ -1,5 +1,4 @@
 # import * from './tile.graphql'
-# import * from '../statusCode.graphql'
 # import * from '../utils/utils.graphql'
 
 input MapInput {
@@ -28,7 +27,7 @@ type Query {
 type Mutation {
     createMap(map: MapInput!): Map
     editMap(_id: ID!, update: MapUpdate!): Map
-    deleteMap(_id: ID!): Map
+    deleteMap(_id: ID!): [Map]
 }
 
 type Subscription {

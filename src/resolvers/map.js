@@ -1,4 +1,4 @@
-const { ApolloError, PubSub } = require('apollo-server');
+const { PubSub, ApolloError } = require('apollo-server');
 const db = require('./utils/database');
 const { model: MapModel } = require('../models/map');
 const { Where } = require('./utils/linqConstructor');
@@ -8,63 +8,91 @@ const MAP_UPDATED = 'MAP_UPDATED';
 
 module.exports = {
   Query: {
-    getMap: (_, { _id, where }) => {
+    getMap: async (_, { _id, where }) => {
       if (_id && where) {
-        throw new Error('ID_AND_WHERE');
+        throw new ApolloError(
+          'Cannot specify id and where clause',
+          'ID_AND_WHERE',
+        );
       } else if (_id) {
-        const maps = db.GetDocument(MapModel, { _id })
-          .then(async (result) => [result])
-          .catch((error) => []);
+        const map = await db.GetDocument(MapModel, { _id });
+
+        if (map) return [map];
+
+        throw new ApolloError(
+          `Could not find the map with id: ${_id}`,
+          'NO_MAP_FOUND',
+        );
       } else if (where) {
-        return db.GetDocuments(MapModel, Where(where))
-          .then(async (result) => result)
-          .catch((error) => []);
+        const maps = await db.GetDocuments(MapModel, Where(where));
+
+        if (maps) return maps;
+
+        throw new ApolloError(
+          `Could not find maps with where: ${JSON.stringify(where)}`,
+          'NO_MAPS_FOUND',
+        );
       } else {
-        throw new ApolloError('Must provide an id or a where clause!');
+        throw new ApolloError(
+          'No id or where clause was provided',
+          'NO_ID_OR_WHERE',
+        );
       }
     },
   },
   Mutation: {
-    createMap: (_, { map }) => db.CreateDocument(MapModel, map)
-      .then(() => ({
-        code: 200,
-        message: 'Successfully inserted Map',
-      }))
-      .catch((error) => ({
-        code: 400,
-        message: error,
-      })),
-    editMap: async (_, { _id, update }) => db.UpdateDocument(MapModel, { _id }, update)
-      .then((result) => {
-        pubsub.publish(MAP_UPDATED, { mapUpdated: result });
-        return result;
-      })
-      .catch((error) => new ApolloError('Error updating the map!')),
+    createMap: async (_, { map }) => {
+      const createdMap = await db.CreateDocument(MapModel, map);
+
+      if (createdMap) return createdMap;
+
+      throw new ApolloError(
+        'An error occurred while trying to create the map',
+        'CREATE_MAP_ERROR',
+      );
+    },
+    editMap: async (_, { _id, update }) => {
+      const mapUpdated = await db.UpdateDocument(MapModel, { _id }, update);
+
+      if (mapUpdated) {
+        pubsub.publish(MAP_UPDATED, { mapUpdated });
+        return mapUpdated;
+      }
+
+      throw new ApolloError(
+        'An error occurred while trying to edit the map',
+        'EDIT_MAP_ERROR',
+      );
+    },
     deleteMap: async (_, { _id, where }) => {
       if (_id && where) {
-        throw new ApolloError('Cannot specify id and where clause!');
+        throw new ApolloError(
+          'Cannot specify id and where clause',
+          'ID_AND_WHERE',
+        );
       } else if (_id) {
-        return db.DeleteDocument(MapModel, { _id })
-          .then(() => ({
-            code: 200,
-            message: 'Successfully deleted Map',
-          }))
-          .catch((error) => ({
-            code: 400,
-            message: error,
-          }));
+        const deletedMap = await db.DeleteDocument(MapModel, { _id });
+
+        if (deletedMap) return deletedMap;
+
+        throw new ApolloError(
+          `An error occurred while trying to delete map with supplied _id: ${_id}`,
+          'DELETE_MAP_ERROR',
+        );
       } else if (where) {
-        return db.DeleteDocuments(MapModel, Where(where))
-          .then(async (result) => ({
-            code: 200,
-            message: JSON.stringify(result),
-          }))
-          .catch((error) => ({
-            code: 400,
-            message: error,
-          }));
+        const deletedMap = await db.DeleteDocuments(MapModel, Where(where));
+
+        if (deletedMap) return deletedMap;
+
+        throw new ApolloError(
+          `An error occurred while trying to delete maps with supplied where: ${JSON.stringify(where)}`,
+          'DELETE_MAPS_ERROR',
+        );
       } else {
-        throw new ApolloError('Must provide an id or a where clause!');
+        throw new ApolloError(
+          'No id or where clause was provided',
+          'NO_ID_OR_WHERE',
+        );
       }
     },
   },
