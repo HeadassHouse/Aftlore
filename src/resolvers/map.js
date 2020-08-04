@@ -15,23 +15,11 @@ module.exports = {
           'ID_AND_WHERE',
         );
       } else if (_id) {
-        const map = await db.GetDocument(MapModel, { _id });
-
-        if (map) return [map];
-
-        throw new ApolloError(
-          `Could not find the map with id: ${_id}`,
-          'NO_MAP_FOUND',
-        );
+        return [
+          await db.GetDocument(MapModel, { _id }),
+        ];
       } else if (where) {
-        const maps = await db.GetDocuments(MapModel, Where(where));
-
-        if (maps) return maps;
-
-        throw new ApolloError(
-          `Could not find maps with where: ${JSON.stringify(where)}`,
-          'NO_MAPS_FOUND',
-        );
+        return db.GetDocuments(MapModel, Where(where));
       } else {
         throw new ApolloError(
           'No id or where clause was provided',
@@ -80,9 +68,9 @@ module.exports = {
           'DELETE_MAP_ERROR',
         );
       } else if (where) {
-        const deletedMap = await db.DeleteDocuments(MapModel, Where(where));
+        const deletedMaps = await db.DeleteDocuments(MapModel, Where(where));
 
-        if (deletedMap) return deletedMap;
+        if (deletedMaps) return deletedMaps;
 
         throw new ApolloError(
           `An error occurred while trying to delete maps with supplied where: ${JSON.stringify(where)}`,

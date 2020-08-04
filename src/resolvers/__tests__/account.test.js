@@ -3,20 +3,9 @@ const { Query, Mutation } = require('../account');
 const { compare, encrypt } = require('../utils/hash');
 const { CreateDocument, GetDocument, UpdateDocument } = require('../utils/database');
 
-jest.mock('apollo-server', () => ({
-  ApolloError: jest.fn(),
-}));
-
-jest.mock('../utils/hash', () => ({
-  compare: jest.fn(),
-  encrypt: jest.fn(),
-}));
-
-jest.mock('../utils/database', () => ({
-  CreateDocument: jest.fn(),
-  GetDocument: jest.fn(),
-  UpdateDocument: jest.fn(),
-}));
+jest.mock('apollo-server');
+jest.mock('../utils/hash');
+jest.mock('../utils/database');
 
 describe('account resolver', () => {
   let account;

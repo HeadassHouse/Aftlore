@@ -1,10 +1,7 @@
 const bcrypt = require('bcrypt');
 const hash = require('../hash');
 
-jest.mock('bcrypt', () => ({
-  compare: jest.fn(),
-  hash: jest.fn(),
-}));
+jest.mock('bcrypt');
 
 describe('hashing functions', () => {
   beforeEach(() => {
