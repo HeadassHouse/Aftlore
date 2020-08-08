@@ -10,7 +10,7 @@ input MapInput {
 input MapUpdate {
     imageLink: String
     name: String
-    tiles: [TileInput]
+    tiles(id: ID): [TileInput]
 }
 
 type Map {
@@ -20,8 +20,20 @@ type Map {
     tiles: [Tile]
 }
 
+type MapEdge {
+    node: Map!
+    cursor: String!
+}
+
+type MapCursor {
+    edges: [MapEdge]!
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
 type Query {
-    getMap(_id: String, where: And): [Map]
+    map(_id: String!): Map
+    maps(where: And!): MapCursor
 }
 
 type Mutation {

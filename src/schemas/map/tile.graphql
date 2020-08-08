@@ -16,7 +16,7 @@ input TileInput {
     entities: [ EntityInput ]
 }
 
-type Tile {
+type TileNode {
     _id: ID
     x: String
     y: String
