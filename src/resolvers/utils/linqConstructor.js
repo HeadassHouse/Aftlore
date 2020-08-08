@@ -18,6 +18,7 @@
 //
 // This translates to
 // The WHERE clause is built by the following functions
+
 const getArgs = require('./proccessCommandLineArgs');
 
 const Or = ({ operation, value, property }) => {
@@ -70,7 +71,9 @@ module.exports = {
       });
     }
 
-    if (getArgs().verbose) { console.log(`AHAHA${JSON.stringify(and)}`); }
+    // eslint-disable-next-line no-console
+    if (getArgs().verbose) console.log(`${JSON.stringify(and)}`);
+
     return (and) || { };
   },
 };

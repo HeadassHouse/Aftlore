@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 const { Where } = require('../linqConstructor');
 
 describe('Where filter', () => {
   let where;
+
   beforeEach(() => {
     where = {
       and: [{
@@ -91,10 +93,12 @@ describe('Where filter', () => {
 
     expect(whereObj).toEqual(shouldBe);
   });
-  it('should log the and clause when verbose tag is set', () => {
+  it('should log the AND clause when verbose tag is set', () => {
     process.argv.push('v');
     console.log = jest.fn();
+
     Where({});
+
     expect(console.log).toBeCalled();
   });
 });

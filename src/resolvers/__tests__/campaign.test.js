@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { Query, Mutation } = require('../campaign');
 
 describe('campaign resolver', () => {
