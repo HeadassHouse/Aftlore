@@ -21,9 +21,9 @@ module.exports = () => {
         break;
       case 'help':
       case 'h':
+        // eslint-disable-next-line no-console
         console.error('Usage:\n\tnpm <start>\nOptions:\n\t[v / verbose]\n\t[d / dev]\n\t[p / prod]\n\t[h / help]');
         process.exit();
-        break;
     }
   });
 

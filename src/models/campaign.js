@@ -14,4 +14,3 @@ module.exports = {
   model: model('Campaign', CampaignSchema),
   schema: CampaignSchema,
 };
-

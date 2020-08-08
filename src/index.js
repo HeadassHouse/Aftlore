@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { Connect } = require('./resolvers/utils/database');
 const app = require('./app');
 

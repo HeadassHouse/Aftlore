@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const args = require('../proccessCommandLineArgs');
 
 describe('args should return expected', () => {
