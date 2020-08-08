@@ -1,32 +1,15 @@
 const { PubSub, ApolloError } = require('apollo-server');
 const db = require('./utils/database');
 const { model: MapModel } = require('../models/map');
-const { Where } = require('./utils/linqConstructor');
+const { Where } = require('./utils/queryBuilder');
 
 const pubsub = new PubSub();
 const MAP_UPDATED = 'MAP_UPDATED';
 
 module.exports = {
   Query: {
-    getMap: async (_, { _id, where }) => {
-      if (_id && where) {
-        throw new ApolloError(
-          'Cannot specify id and where clause',
-          'ID_AND_WHERE',
-        );
-      } else if (_id) {
-        return [
-          await db.GetDocument(MapModel, { _id }),
-        ];
-      } else if (where) {
-        return db.GetDocuments(MapModel, Where(where));
-      } else {
-        throw new ApolloError(
-          'No id or where clause was provided',
-          'NO_ID_OR_WHERE',
-        );
-      }
-    },
+    map: async (_, { _id }) => db.GetDocument(MapModel, { _id }),
+    maps: async (_, { where }) => db.GetDocuments(MapModel, Where(where)),
   },
   Mutation: {
     createMap: async (_, { map }) => {

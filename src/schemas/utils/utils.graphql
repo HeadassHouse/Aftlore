@@ -10,6 +10,12 @@ input UpdateAny {
     value: String
 }
 
+"""NODE STUFF"""
+type PageInfo {
+    endCursor: String
+    hasNextPage: Boolean!
+}
+
 """WHERE CLAUSES"""
 enum Operation {
     EQUALS
@@ -32,4 +38,8 @@ input Or {
 
 input And {
     and: [ Or ]
+    limit: Int
+    first: Int
+    offset: Int
+    after: String
 }

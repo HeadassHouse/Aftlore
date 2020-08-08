@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const { Where } = require('../linqConstructor');
+const { Where } = require('../queryBuilder');
 
 describe('Where filter', () => {
   let where;

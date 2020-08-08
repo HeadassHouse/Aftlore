@@ -2,7 +2,7 @@ const { ApolloError, PubSub } = require('apollo-server');
 const mongoose = require('mongoose');
 const db = require('./utils/database');
 const { schema: Campaign } = require('../models/campaign');
-const { Where } = require('./utils/linqConstructor');
+const { Where } = require('./utils/queryBuilder');
 
 const pubsub = new PubSub();
 const CAMPAIGN_UPDATED = 'CAMPAIGN_UPDATED';
