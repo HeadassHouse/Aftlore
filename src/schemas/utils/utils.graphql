@@ -13,7 +13,9 @@ input UpdateAny {
 """NODE STUFF"""
 type PageInfo {
     endCursor: String
+    endCursor: String
     hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
 }
 
 """WHERE CLAUSES"""
