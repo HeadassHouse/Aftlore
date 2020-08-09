@@ -28,7 +28,7 @@ type MapEdge {
 type MapCursor {
     edges: [MapEdge]!
     pageInfo: PageInfo!
-    totalCount: Int!
+    count: Int!
 }
 
 type Query {
