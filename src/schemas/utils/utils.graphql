@@ -40,8 +40,4 @@ input Or {
 
 input And {
     and: [ Or ]
-    limit: Int
-    first: Int
-    offset: Int
-    after: String
 }

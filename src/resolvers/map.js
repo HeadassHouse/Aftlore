@@ -2,6 +2,7 @@ const { PubSub, ApolloError } = require('apollo-server');
 const db = require('./utils/database');
 const { model: MapModel } = require('../models/map');
 const { Where } = require('./utils/queryBuilder');
+const buildPaginationObject = require('./utils/buildPaginationObject');
 
 const pubsub = new PubSub();
 const MAP_UPDATED = 'MAP_UPDATED';
@@ -9,7 +10,19 @@ const MAP_UPDATED = 'MAP_UPDATED';
 module.exports = {
   Query: {
     map: async (_, { _id }) => db.GetDocument(MapModel, { _id }),
-    maps: async (_, { where }) => db.GetDocuments(MapModel, Where(where)),
+    maps: async (_, {
+      where, first, last, before, after,
+    }) => {
+      const start = new Date().getMilliseconds();
+
+      const maps = await db.GetDocuments(MapModel, Where(where));
+
+      const pageObject = buildPaginationObject(maps, first, last, before, after);
+
+      console.log((new Date().getMilliseconds()) - start);
+
+      return pageObject;
+    },
   },
   Mutation: {
     createMap: async (_, { map }) => {

@@ -1,6 +1,7 @@
 const { ApolloError, PubSub } = require('apollo-server');
 const { Query, Mutation, Subscription } = require('../map');
 const { Where } = require('../utils/queryBuilder');
+const buildPaginationObject = require('../utils/buildPaginationObject');
 const {
   CreateDocument, GetDocuments, GetDocument, UpdateDocument, DeleteDocument, DeleteDocuments,
 } = require('../utils/database');
@@ -8,6 +9,7 @@ const {
 jest.mock('apollo-server');
 jest.mock('../utils/queryBuilder');
 jest.mock('../utils/database');
+jest.mock('../utils/buildPaginationObject');
 
 describe('map resolver', () => {
   let maps;
@@ -63,6 +65,7 @@ describe('map resolver', () => {
     GetDocument.mockReturnValue(maps[0]);
     GetDocuments.mockReturnValue(maps);
     UpdateDocument.mockReturnValue(maps[0]);
+    buildPaginationObject.mockImplementation((input) => input);
   });
 
   afterEach(() => {
