@@ -10,7 +10,7 @@ input MapInput {
 input MapUpdate {
     imageLink: String
     name: String
-    tiles(id: ID): [TileInput]
+    tiles: [TileInput]
 }
 
 type Map {
@@ -33,6 +33,7 @@ type MapCursor {
 
 type Query {
     map(_id: String!): Map
+    maps(
         where: And!
         first: Int
         last: Int
@@ -40,6 +41,9 @@ type Query {
         before: String
     ): MapCursor
 }
+
+type Mutation {
+    createMap(map: MapInput!): Map
     editMap(_id: ID!, update: MapUpdate!): Map
     deleteMap(_id: ID!): [Map]
 }

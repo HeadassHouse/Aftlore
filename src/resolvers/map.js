@@ -13,15 +13,9 @@ module.exports = {
     maps: async (_, {
       where, first, last, before, after,
     }) => {
-      const start = new Date().getMilliseconds();
-
       const maps = await db.GetDocuments(MapModel, Where(where));
 
-      const pageObject = buildPaginationObject(maps, first, last, before, after);
-
-      console.log((new Date().getMilliseconds()) - start);
-
-      return pageObject;
+      return buildPaginationObject(maps, first, last, before, after);
     },
   },
   Mutation: {
