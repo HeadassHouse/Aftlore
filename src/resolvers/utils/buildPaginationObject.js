@@ -16,7 +16,7 @@ const applyCursorsToEdges = (allEdges, before, after) => {
     let index;
     const afterEdge = edges.find(({ _id }, i) => {
       index = i;
-      return _id === after;
+      return (String(_id) === String(after));
     });
 
     if (afterEdge) edges = edges.slice(index + 1);
@@ -27,7 +27,7 @@ const applyCursorsToEdges = (allEdges, before, after) => {
     let index;
     const beforeEdge = edges.find(({ _id }, i) => {
       index = i;
-      return _id === before;
+      return (String(_id) === String(before));
     });
 
     if (beforeEdge) edges = edges.slice(0, index);
