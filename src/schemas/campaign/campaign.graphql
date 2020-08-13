@@ -2,6 +2,7 @@
 # import './character.graphql'
 # import '../map/map.graphql'
 # import '../ruleset/ruleset.graphql'
+# import * from '../utils/pagination.graphql'
 
 type Campaign {
     _id: ID
@@ -10,18 +11,31 @@ type Campaign {
     description: String
     characters: [Character]
     ruleSet: Ruleset
-    maps: [ID]
-    
+    maps(
+        first: Int
+        last: Int
+        after: String
+        before: String
+    ): MapConnection
+}
+
+type CampaignEdge {
+    cursor: String!
+    node: Campaign!
+}
+
+type CampaignConnection {
+    edges: [CampaignEdge]!
+    pageInfo: PageInfo!
 }
 
 input CampaignInput {
     name: String!
     dm: ID!
     description: String!
-    characters: [ID]!
-    ruleSet: RulesetInput!
+    characters: [ID]
+    ruleSet: RulesetInput
     maps: [ID]!
-    
 }
 
 input CampaignEdit {
@@ -31,11 +45,17 @@ input CampaignEdit {
     characters: [ID]
     ruleSet: RulesetInput
     maps: [ID]
-    
 }
 
 type Query {
-    getCampaign(_id: ID!): [Campaign]
+    campaign(_id: ID!): Campaign
+    campaigns(
+        where: And!
+        first: Int
+        last: Int
+        after: String
+        before: String
+    ): CampaignConnection
 }
 
 type Mutation {

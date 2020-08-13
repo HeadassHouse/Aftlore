@@ -3,7 +3,7 @@
   guarunteed to be correct.
 
   This algorithm is based on the spec defined here:
-  https://relay.dev/graphql/connections.htm#ApplyCursorsToEdges()
+  https://relay.dev/graphql/connections.htm
 */
 const { ApolloError } = require('apollo-server');
 
@@ -42,7 +42,7 @@ const applyCursorsToEdges = (allEdges, before, after) => {
 };
 
 const edgesToReturn = (allEdges, first, last) => {
-  let edges = allEdges;
+  let edges = allEdges || [];
 
   if (first) {
     if (first < 0) throw new ApolloError('Cannot be less than 0', 'LESS_THAN_ZERO');
@@ -103,7 +103,6 @@ module.exports = (allEdges, first = null, last = null, before = null, after = nu
       hasNextPage,
       hasPreviousPage,
     },
-    count: edges.length,
   };
 
   if (edges.length !== 0) {

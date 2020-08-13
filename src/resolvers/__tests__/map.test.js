@@ -1,15 +1,9 @@
 const { ApolloError, PubSub } = require('apollo-server');
 const { Query, Mutation, Subscription } = require('../map');
-const { Where } = require('../utils/queryBuilder');
-const buildPaginationObject = require('../utils/buildPaginationObject');
-const {
-  CreateDocument, GetDocuments, GetDocument, UpdateDocument, DeleteDocument, DeleteDocuments,
-} = require('../utils/database');
+const { queryBuilder, buildPaginationObject, database } = require('../utils');
 
 jest.mock('apollo-server');
-jest.mock('../utils/queryBuilder');
-jest.mock('../utils/database');
-jest.mock('../utils/buildPaginationObject');
+jest.mock('../utils');
 
 describe('map resolver', () => {
   let maps;
@@ -59,12 +53,12 @@ describe('map resolver', () => {
         ],
       },
     ];
-    CreateDocument.mockReturnValue(maps[0]);
-    DeleteDocument.mockReturnValue(maps[0]);
-    DeleteDocuments.mockReturnValue(maps[0]);
-    GetDocument.mockReturnValue(maps[0]);
-    GetDocuments.mockReturnValue(maps);
-    UpdateDocument.mockReturnValue(maps[0]);
+    database.CreateDocument.mockReturnValue(maps[0]);
+    database.DeleteDocument.mockReturnValue(maps[0]);
+    database.DeleteDocuments.mockReturnValue(maps[0]);
+    database.GetDocument.mockReturnValue(maps[0]);
+    database.GetDocuments.mockReturnValue(maps);
+    database.UpdateDocument.mockReturnValue(maps[0]);
     buildPaginationObject.mockImplementation((input) => input);
   });
 
@@ -103,7 +97,7 @@ describe('map resolver', () => {
 
         const response = await Query.maps(null, input);
 
-        expect(Where).toHaveBeenCalledWith(input.where);
+        expect(queryBuilder).toHaveBeenCalledWith(input.where);
         expect(response).toEqual(maps);
       });
     });
@@ -118,7 +112,7 @@ describe('map resolver', () => {
       });
 
       it('should throw an error when it could not create the map', async () => {
-        CreateDocument.mockReturnValue(null);
+        database.CreateDocument.mockReturnValue(null);
         try {
           await Mutation.createMap(null, { map: maps[0] });
         } catch (_) {
@@ -145,7 +139,7 @@ describe('map resolver', () => {
       });
 
       it('should throw an error when it could not edit the map', async () => {
-        UpdateDocument.mockReturnValue(null);
+        database.UpdateDocument.mockReturnValue(null);
         try {
           await Mutation.editMap(null, { map: maps[0] });
         } catch (_) {
@@ -187,12 +181,12 @@ describe('map resolver', () => {
 
         const response = await Mutation.deleteMap(null, input);
 
-        expect(Where).toHaveBeenCalledWith(input.where);
+        expect(queryBuilder).toHaveBeenCalledWith(input.where);
         expect(response).toEqual(maps[0]);
       });
 
       it('should throw an error if it could not delete the given map with _id', async () => {
-        DeleteDocument.mockReturnValue(null);
+        database.DeleteDocument.mockReturnValue(null);
 
         const input = {
           _id: '123',
@@ -210,7 +204,7 @@ describe('map resolver', () => {
       });
 
       it('should throw an error if it could not delete the given map(s) with where clause', async () => {
-        DeleteDocuments.mockReturnValue(null);
+        database.DeleteDocuments.mockReturnValue(null);
 
         const input = {
           where: {
@@ -283,7 +277,7 @@ describe('map resolver', () => {
     it('should properly call the asyncIterator', () => {
       Subscription.mapUpdated.subscribe();
 
-      expect(PubSub.prototype.asyncIterator).toHaveBeenCalledWith(['MAP_UPDATED']);
+      expect(PubSub.prototype.asyncIterator).toHaveBeenCalledWith(['MAP__UPDATED']);
     });
   });
 });

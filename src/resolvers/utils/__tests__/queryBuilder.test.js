@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const { Where } = require('../queryBuilder');
+const { queryBuilder } = require('..');
 
 describe('Where filter', () => {
   let where;
@@ -48,7 +48,7 @@ describe('Where filter', () => {
     };
   });
   it('should return an appropriate MongoDB filter', () => {
-    const whereObj = JSON.stringify(Where(where));
+    const whereObj = JSON.stringify(queryBuilder(where));
     const shouldBe = JSON.stringify({
       $and: [{
         $or: [
@@ -80,7 +80,7 @@ describe('Where filter', () => {
       }],
     };
     try {
-      Where(And);
+      queryBuilder(And);
     } catch (err) {
       expect(err).toEqual(new Error('Data type could not be properly compared! Error: NOT_AN_OP'));
     }
@@ -88,7 +88,7 @@ describe('Where filter', () => {
   it('should return an empty filter object when empty body supplied', () => {
     const And = {};
 
-    const whereObj = JSON.stringify(Where(And));
+    const whereObj = JSON.stringify(queryBuilder(And));
     const shouldBe = JSON.stringify({});
 
     expect(whereObj).toEqual(shouldBe);
@@ -97,7 +97,7 @@ describe('Where filter', () => {
     process.argv.push('v');
     console.log = jest.fn();
 
-    Where({});
+    queryBuilder({});
 
     expect(console.log).toBeCalled();
   });

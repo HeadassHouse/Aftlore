@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const hash = require('../hash');
+const { hash } = require('..');
 
 jest.mock('bcrypt');
 

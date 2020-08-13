@@ -1,5 +1,5 @@
 const { ApolloError } = require('apollo-server');
-const buildPaginationObject = require('../buildPaginationObject');
+const { buildPaginationObject } = require('..');
 
 jest.mock('apollo-server');
 
@@ -32,7 +32,7 @@ describe('pagination object builder', () => {
   });
 
   it('should return a default cursor object when nothing is supplied', () => {
-    const cursor = buildPaginationObject([]);
+    const cursor = buildPaginationObject(null);
 
     expect(cursor).toEqual({
       edges: [],
@@ -42,7 +42,6 @@ describe('pagination object builder', () => {
         hasNextPage: false,
         hasPreviousPage: false,
       },
-      count: 0,
     });
   });
 
@@ -73,7 +72,6 @@ describe('pagination object builder', () => {
           hasNextPage: true,
           hasPreviousPage: false,
         },
-        count: 2,
       });
     });
 
@@ -124,7 +122,6 @@ describe('pagination object builder', () => {
           hasNextPage: false,
           hasPreviousPage: false,
         },
-        count: 5,
       });
     });
 
@@ -162,7 +159,6 @@ describe('pagination object builder', () => {
           hasNextPage: false,
           hasPreviousPage: true,
         },
-        count: 2,
       });
     });
 
@@ -213,7 +209,6 @@ describe('pagination object builder', () => {
           hasNextPage: false,
           hasPreviousPage: false,
         },
-        count: 5,
       });
     });
 
@@ -268,7 +263,6 @@ describe('pagination object builder', () => {
           hasNextPage: false,
           hasPreviousPage: true,
         },
-        count: 3,
       });
     });
 
@@ -319,7 +313,6 @@ describe('pagination object builder', () => {
           hasNextPage: false,
           hasPreviousPage: false,
         },
-        count: 5,
       });
     });
 
@@ -349,7 +342,6 @@ describe('pagination object builder', () => {
           hasNextPage: true,
           hasPreviousPage: false,
         },
-        count: 2,
       });
     });
 
@@ -400,7 +392,6 @@ describe('pagination object builder', () => {
           hasNextPage: false,
           hasPreviousPage: false,
         },
-        count: 5,
       });
     });
   });

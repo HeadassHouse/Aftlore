@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const database = require('../database');
+const { database } = require('..');
 
 describe('database', () => {
   const testModel = mongoose.model(

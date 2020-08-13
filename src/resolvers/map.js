@@ -1,26 +1,24 @@
 const { PubSub, ApolloError } = require('apollo-server');
-const db = require('./utils/database');
-const { model: MapModel } = require('../models/map');
-const { Where } = require('./utils/queryBuilder');
-const buildPaginationObject = require('./utils/buildPaginationObject');
+const { database, queryBuilder, buildPaginationObject } = require('./utils');
+const { MapModel } = require('../models');
+const { MAP } = require('../constants/SUBSCRIPTION_EVENTS');
 
 const pubsub = new PubSub();
-const MAP_UPDATED = 'MAP_UPDATED';
 
 module.exports = {
   Query: {
-    map: async (_, { _id }) => db.GetDocument(MapModel, { _id }),
+    map: async (_, { _id }) => database.GetDocument(MapModel, { _id }),
     maps: async (_, {
       where, first, last, before, after,
     }) => {
-      const maps = await db.GetDocuments(MapModel, Where(where));
+      const maps = await database.GetDocuments(MapModel, queryBuilder(where));
 
       return buildPaginationObject(maps, first, last, before, after);
     },
   },
   Mutation: {
     createMap: async (_, { map }) => {
-      const createdMap = await db.CreateDocument(MapModel, map);
+      const createdMap = await database.CreateDocument(MapModel, map);
 
       if (createdMap) return createdMap;
 
@@ -30,10 +28,10 @@ module.exports = {
       );
     },
     editMap: async (_, { _id, update }) => {
-      const mapUpdated = await db.UpdateDocument(MapModel, { _id }, update);
+      const mapUpdated = await database.UpdateDocument(MapModel, { _id }, update);
 
       if (mapUpdated) {
-        pubsub.publish(MAP_UPDATED, { mapUpdated });
+        pubsub.publish(MAP.UPDATED, { mapUpdated });
         return mapUpdated;
       }
 
@@ -49,7 +47,7 @@ module.exports = {
           'ID_AND_WHERE',
         );
       } else if (_id) {
-        const deletedMap = await db.DeleteDocument(MapModel, { _id });
+        const deletedMap = await database.DeleteDocument(MapModel, { _id });
 
         if (deletedMap) return deletedMap;
 
@@ -58,7 +56,7 @@ module.exports = {
           'DELETE_MAP_ERROR',
         );
       } else if (where) {
-        const deletedMaps = await db.DeleteDocuments(MapModel, Where(where));
+        const deletedMaps = await database.DeleteDocuments(MapModel, queryBuilder(where));
 
         if (deletedMaps) return deletedMaps;
 
@@ -76,7 +74,7 @@ module.exports = {
   },
   Subscription: {
     mapUpdated: {
-      subscribe: () => pubsub.asyncIterator([MAP_UPDATED]),
+      subscribe: () => pubsub.asyncIterator([MAP.UPDATED]),
     },
   },
 };

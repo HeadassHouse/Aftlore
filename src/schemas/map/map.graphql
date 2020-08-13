@@ -1,5 +1,6 @@
 # import * from './tile.graphql'
 # import * from '../utils/utils.graphql'
+# import * from '../utils/pagination.graphql'
 
 input MapInput {
     imageLink: String!
@@ -21,14 +22,13 @@ type Map {
 }
 
 type MapEdge {
-    node: Map!
     cursor: String!
+    node: Map!
 }
 
-type MapCursor {
+type MapConnection {
     edges: [MapEdge]!
     pageInfo: PageInfo!
-    count: Int!
 }
 
 type Query {
@@ -39,7 +39,7 @@ type Query {
         last: Int
         after: String
         before: String
-    ): MapCursor
+    ): MapConnection
 }
 
 type Mutation {

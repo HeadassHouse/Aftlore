@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const args = require('../proccessCommandLineArgs');
+const { proccessCommandLineArgs } = require('..');
 
 describe('args should return expected', () => {
   afterEach(() => {
@@ -16,7 +16,7 @@ describe('args should return expected', () => {
         ${'prod'}    | ${'prod'} | ${'env'}
     `('should return $expected for $tag', ({ tag, expected, accessor }) => {
     process.argv.push(tag);
-    const arg = args()[accessor];
+    const arg = proccessCommandLineArgs()[accessor];
     expect(arg).toEqual(expected);
   });
   describe('help', () => {
@@ -29,7 +29,7 @@ describe('args should return expected', () => {
       it('should print help message', () => {
         process.argv.push(tag);
 
-        args();
+        proccessCommandLineArgs();
 
         expect(console.error).toBeCalled();
         expect(process.exit).toBeCalled();

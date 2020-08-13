@@ -60,22 +60,20 @@ const And = (ORList) => {
   return { $or: or };
 };
 
-module.exports = {
-  Where: (ANDList) => {
-    let and = null;
-    if (ANDList.and) {
-      ANDList.and.forEach((AND) => {
-        if (and) {
-          and.$and.push(And(AND));
-        } else {
-          and = { $and: [And(AND)] };
-        }
-      });
-    }
+module.exports = (ANDList) => {
+  let and = null;
+  if (ANDList.and) {
+    ANDList.and.forEach((AND) => {
+      if (and) {
+        and.$and.push(And(AND));
+      } else {
+        and = { $and: [And(AND)] };
+      }
+    });
+  }
 
-    // eslint-disable-next-line no-console
-    if (getArgs().verbose) console.log(`${JSON.stringify(and)}`);
+  // eslint-disable-next-line no-console
+  if (getArgs().verbose) console.log(`${JSON.stringify(and)}`);
 
-    return (and) || { };
-  },
+  return (and) || { };
 };

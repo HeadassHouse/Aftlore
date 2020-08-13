@@ -1,51 +1,101 @@
 const { ApolloError, PubSub } = require('apollo-server');
-const mongoose = require('mongoose');
-const db = require('./utils/database');
-const { schema: Campaign } = require('../models/campaign');
-const { Where } = require('./utils/queryBuilder');
+const {
+  database,
+  buildPaginationObject,
+  queryBuilder,
+} = require('./utils');
+const { CampaignModel } = require('../models');
+const { Query: { maps: mapsResolver } } = require('./map');
+const { Query: { characterSheets: characterSheetsResolver } } = require('./characterSheet');
+// const { Query: { ruleSet: ruleSetResolver } } = require('./ruleset');
 
 const pubsub = new PubSub();
-const CAMPAIGN_UPDATED = 'CAMPAIGN_UPDATED';
+
+const buildCampaignObject = ({
+  characters, ruleSet, maps, ...campaign
+}) => ({
+  ...campaign,
+  characters: ({
+    first, last, before, after,
+  }) => {
+    const where = {
+      and: [{
+        or: characters.map((id) => ({
+          property: '_id',
+          operation: 'EQUALS',
+          value: id,
+        })),
+      }],
+    };
+
+    return characterSheetsResolver(null, {
+      where, first, last, before, after,
+    });
+  },
+  ruleSet: () => null,
+  maps: async ({
+    first, last, before, after,
+  }) => {
+    const where = {
+      and: [{
+        or: maps.map((id) => ({
+          property: '_id',
+          operation: 'EQUALS',
+          value: id,
+        })),
+      }],
+    };
+
+    return mapsResolver(null, {
+      where, first, last, before, after,
+    });
+  },
+});
 
 module.exports = {
   Query: {
-    getCampaign: (_, { _id, where }) => {
-      if (_id && where) {
-        throw new ApolloError('Cannot specify id and where clause!');
-      } else if (_id) {
-        return db.GetDocument(mongoose.model('Campaign', Campaign), { _id })
-          .then(async (result) => [result])
-          .catch(() => []);
-      } else if (where) {
-        return db.GetDocuments(mongoose.model('Campaign', Campaign), Where(where))
-          .then(async (result) => result)
-          .catch(() => []);
-      } else {
-        throw new ApolloError('Must provide an id or a where clause!');
-      }
+    campaign: async (_, { _id }) => {
+      const { _doc } = { ...await database.GetDocument(CampaignModel, { _id }) };
+
+      return buildCampaignObject(_doc);
+    },
+    campaigns: async (_, {
+      where, first, last, after, before,
+    }) => {
+      let campaigns = await database.GetDocuments(CampaignModel, queryBuilder(where));
+
+      campaigns = campaigns.map((campaign) => {
+        const { _doc } = { ...campaign };
+
+        return buildCampaignObject(_doc);
+      });
+
+      return buildPaginationObject(campaigns, first, last, after, before);
     },
   },
   Mutation: {
-    createCampaign: (_, { campaign }) => db.CreateDocument(mongoose.model('Campaign', Campaign), campaign)
-      .then(() => ({
-        code: 200,
-        message: 'Successfully inserted campaign',
-      }))
-      .catch((error) => ({
-        code: 400,
-        message: error,
-      })),
-    editCampaign: async (_, { _id, update }) => db.UpdateDocument(mongoose.model('Campaign', Campaign), { _id }, update)
-      .then((result) => {
-        pubsub.publish(CAMPAIGN_UPDATED, { campaignUpdated: result });
-        return result;
-      })
-      .catch(() => new ApolloError('Error updating the campaign!')),
+    createCampaign: (_, { campaign }) => {
+      const createdCampaign = database.CreateDocument(CampaignModel, campaign);
+
+      if (createdCampaign) return createdCampaign;
+
+      throw new ApolloError('ah', 'AH');
+    },
+    editCampaign: async (_, { _id, update }) => {
+      const campaignUpdated = database.UpdateDocument(CampaignModel, { _id }, update);
+
+      if (campaignUpdated) {
+        pubsub.publish('CAMPAIGN_UPDATED', { campaignUpdated });
+        return campaignUpdated;
+      }
+
+      throw new ApolloError('Error updating the campaign!', 'CAMPAIGN_UPDATE_ERROR');
+    },
     deleteCampaign: async (_, { _id, where }) => {
       if (_id && where) {
         throw new ApolloError('Cannot specify id and where clause!');
       } else if (_id) {
-        return db.DeleteDocument(mongoose.model('Campaign', Campaign), { _id })
+        return database.DeleteDocument(CampaignModel, { _id })
           .then(() => ({
             code: 200,
             message: 'Successfully deleted campaign',
@@ -55,7 +105,7 @@ module.exports = {
             message: error,
           }));
       } else if (where) {
-        return db.DeleteDocuments(mongoose.model('Campaign', Campaign), Where(where))
+        return database.DeleteDocuments(CampaignModel, queryBuilder(where))
           .then(async (result) => ({
             code: 200,
             message: JSON.stringify(result),

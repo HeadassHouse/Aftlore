@@ -78,6 +78,6 @@ const RuleSetSchema = new Schema({
 });
 
 module.exports = {
-  model: model('RuleSet', RuleSetSchema),
-  schema: RuleSetSchema,
+  RuleSetModel: model('RuleSet', RuleSetSchema),
+  CharacterModel: model('Character', CharacterDefinition),
 };
