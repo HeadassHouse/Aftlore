@@ -1,5 +1,4 @@
 # Installing the npm packages
-
 ```
 $ npm install
 ```
